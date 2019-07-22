@@ -1,0 +1,23 @@
+{
+  "name": "clubhaus",
+  "version": "1.0.0",
+  "description": "Base ClubHaus Package",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Audie Bethea",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^4.1.1",
+    "create-react-app": "^3.0.1",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "morgan": "^1.9.1",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
