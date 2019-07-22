@@ -2,7 +2,7 @@ import React from 'react';
 import UniDropdown from './unidropdown.js';
 //import DropDownInput from 'react-dropdown-input';
 
-//supported universities change?
+//supported universities change? check this change please
 const UNIVERSITIES = ["The University of Texas at Austin", "The Shit Tier Aggies"];
 
 //this component is used to determine the user's university so clubs and colleges
