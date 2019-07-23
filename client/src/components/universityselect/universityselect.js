@@ -1,8 +1,9 @@
-import React from 'react';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css'
+//in this implementation, there will be no dropdown menu, just a list of supported universities
 
-//supported universities change?
+
+import React from 'react';
+
+//supported universities
 const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
 
 //this component is used to determine the user's university so clubs and colleges
@@ -14,11 +15,11 @@ export default class UniversitySelect extends React.Component{
         super(props);
 
         this.state = {
-            input : ""
+            input : "",
+            errorMessage : ""
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSelectedUniversity = this.handleSelectedUniversity.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -28,32 +29,39 @@ export default class UniversitySelect extends React.Component{
         this.setState({input : curInput});
     }
 
-    //updates university selected from dropdown
-    handleSelectedUniversity(selectedUniversity){
-        this.setState({input : selectedUniversity});
-    }
-
     //gets colleges from this university and move to the next page
     onSubmit(){
-
+        if(!UNIVERSITIES.includes(this.state.curInput)){
+            this.setState({errorMessage : "Sorry, we couldn't find any data on that university. "
+                + "Please check your spelling and make sure your university is on our list of supported "
+                + "universities."});
+        }
+        //continue on with submitting
+        else{
+            
+        }
     }
 
     render(){
         return(
             <div>
-                <p>Search for your university using either the search bar or the dropdown menu!</p>
-                <input onChange={this.handleChange} placeholder='Enter your university here'/>
+                <p className="input-directions">Search for your university using the search bar!</p>
 
-                <Dropdown 
-                    options={UNIVERSITIES}
-                    onChange={this.handleSelectedUniversity}
-                    placeholder='Browse through universities here...'
+                <input 
+                    className="university-input" 
+                    onChange={this.handleChange} 
+                    placeholder='Enter your university here' 
                 />
 
-                <button onClick={this.onSubmit}>
+                <ul>
+                    {UNIVERSITIES.map}
+                </ul>
+
+                <button className="submit-button" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
                 </button>
 
+                <p className="error-message">{this.state.errorMessage}</p>
             </div>
         )
     }
