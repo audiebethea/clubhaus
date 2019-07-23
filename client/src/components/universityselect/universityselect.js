@@ -1,9 +1,9 @@
 import React from 'react';
-import UniDropdown from './unidropdown.js';
-//import DropDownInput from 'react-dropdown-input';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css'
 
 //supported universities change?
-const UNIVERSITIES = ["The University of Texas at Austin", "The Shit Tier Aggies"];
+const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
 
 //this component is used to determine the user's university so clubs and colleges
 //can be grabbed from the database for that particular university
@@ -14,36 +14,23 @@ export default class UniversitySelect extends React.Component{
         super(props);
 
         this.state = {
-            input : "",
-            matchingUniversities: UNIVERSITIES
+            input : ""
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.scanInput = this.scanInput.bind(this);
-        this.autoFill = this.autoFill.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSelectedUniversity = this.handleSelectedUniversity.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
-    handleChange(e){
-        const curInput = e.target.value;
-        const curUniversities = this.scanInput(curInput);
-
-        this.setState({input : curInput, matchingUniversities : curUniversities});
+    handleInputChange(curInput){
+        this.setState({input : curInput});
     }
 
-    //scans current input to filter out universities that the
-    //user doesn't seem to be typing
-    scanInput(curInput){
-        return UNIVERSITIES.filter(uni => {
-            return uni.includes(curInput);
-        });
-    }
-
-    autoFill(selectedUniversity){
-        const curUniversities = this.scanInput(selectedUniversity);
-        this.setState({input : selectedUniversity, matchingUniversities : curUniversities});
+    //updates university selected from dropdown
+    handleSelectedUniversity(selectedUniversity){
+        this.setState({input : selectedUniversity});
     }
 
     //gets colleges from this university and move to the next page
@@ -54,12 +41,13 @@ export default class UniversitySelect extends React.Component{
     render(){
         return(
             <div>
-                
-                <input onChange={this.handleChange}/>
+                <p>Search for your university using either the search bar or the dropdown menu!</p>
+                <input onChange={this.handleChange} placeholder='Enter your university here'/>
 
-                <UniDropdown handleChange={this.handleChange}
-                    autoFill={this.autoFill}
-                    universities={this.state.matchingUniversities}
+                <Dropdown 
+                    options={UNIVERSITIES}
+                    onChange={this.handleSelectedUniversity}
+                    placeholder='Browse through universities here...'
                 />
 
                 <button onClick={this.onSubmit}>
