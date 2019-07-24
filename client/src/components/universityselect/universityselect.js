@@ -25,13 +25,13 @@ export default class UniversitySelect extends React.Component{
 
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
-    handleInputChange(curInput){
-        this.setState({input : curInput});
+    handleInputChange(e){
+        this.setState({input : e.target.value});
     }
 
     //gets colleges from this university and move to the next page
     onSubmit(){
-        if(!UNIVERSITIES.includes(this.state.curInput)){
+        if(!UNIVERSITIES.includes(this.state.input)){
             this.setState({errorMessage : "Sorry, we couldn't find any data on that university. "
                 + "Please check your spelling and make sure your university is on our list of supported "
                 + "universities."});
@@ -49,13 +49,18 @@ export default class UniversitySelect extends React.Component{
 
                 <input 
                     className="university-input" 
-                    onChange={this.handleChange} 
+                    onChange={this.handleInputChange} 
                     placeholder='Enter your university here' 
                 />
 
-                <ul>
-                    {UNIVERSITIES.map}
-                </ul>
+                <div>
+                    <p>Supported Universities:</p>
+                    <ul>
+                        {UNIVERSITIES.map(university => {
+                            return <li>{university}</li>
+                        })}
+                    </ul>
+                </div>
 
                 <button className="submit-button" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
