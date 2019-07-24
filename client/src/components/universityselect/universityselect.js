@@ -14,7 +14,7 @@ export default class UniversitySelect extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {S
+        this.state = {
             input : "",
             errorMessage : ""
         }
@@ -38,7 +38,7 @@ export default class UniversitySelect extends React.Component{
         }
         //continue on with submitting
         else{
-            
+            this.props.gotoPage("Questionnaire");
         }
     }
 
