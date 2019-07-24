@@ -1,71 +1,72 @@
-import React from 'react';
-import UniDropdown from './unidropdown.js';
-//import DropDownInput from 'react-dropdown-input';
+//in this implementation, there will be no dropdown menu, just a list of supported universities
 
-//supported universities change? check this change please
-const UNIVERSITIES = ["The University of Texas at Austin", "The Shit Tier Aggies"];
+
+import React from 'react';
+
+//supported universities
+const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
 
 //this component is used to determine the user's university so clubs and colleges
 //can be grabbed from the database for that particular university
 export default class UniversitySelect extends React.Component{
 
-    //initialize state and bind the onChangeHandler function
+    //initialize state and bind the onChangeHandler functio
     constructor(props){
         super(props);
 
-        this.state = {
+        this.state = {S
             input : "",
-            matchingUniversities: UNIVERSITIES
+            errorMessage : ""
         }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.scanInput = this.scanInput.bind(this);
-        this.autoFill = this.autoFill.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
-    handleChange(e){
-        const curInput = e.target.value;
-        const curUniversities = this.scanInput(curInput);
-
-        this.setState({input : curInput, matchingUniversities : curUniversities});
-    }
-
-    //scans current input to filter out universities that the
-    //user doesn't seem to be typing
-    scanInput(curInput){
-        return UNIVERSITIES.filter(uni => {
-            return uni.includes(curInput);
-        });
-    }
-
-    autoFill(selectedUniversity){
-        const curUniversities = this.scanInput(selectedUniversity);
-        this.setState({input : selectedUniversity, matchingUniversities : curUniversities});
+    handleInputChange(e){
+        this.setState({input : e.target.value});
     }
 
     //gets colleges from this university and move to the next page
     onSubmit(){
-
+        if(!UNIVERSITIES.includes(this.state.input)){
+            this.setState({errorMessage : "Sorry, we couldn't find any data on that university. "
+                + "Please check your spelling and make sure your university is on our list of supported "
+                + "universities."});
+        }
+        //continue on with submitting
+        else{
+            
+        }
     }
 
     render(){
         return(
             <div>
-                
-                <input onChange={this.handleChange}/>
+                <p className="input-directions">Search for your university using the search bar!</p>
 
-                <UniDropdown handleChange={this.handleChange}
-                    autoFill={this.autoFill}
-                    universities={this.state.matchingUniversities}
+                <input 
+                    className="university-input" 
+                    onChange={this.handleInputChange} 
+                    placeholder='Enter your university here' 
                 />
 
-                <button onClick={this.onSubmit}>
+                <div>
+                    <p>Supported Universities:</p>
+                    <ul>
+                        {UNIVERSITIES.map(university => {
+                            return <li>{university}</li>
+                        })}
+                    </ul>
+                </div>
+
+                <button className="submit-button" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
                 </button>
 
+                <p className="error-message">{this.state.errorMessage}</p>
             </div>
         )
     }

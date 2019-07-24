@@ -27,6 +27,7 @@ export default class Base extends React.Component{
 
     //renders a specific component based on state
     render(){        
+        // eslint-disable-next-line
         switch(this.state.curPage){
             case "UniversitySelect":
                 return(
