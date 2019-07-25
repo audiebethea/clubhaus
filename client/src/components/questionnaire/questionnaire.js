@@ -12,7 +12,12 @@ export default class Questionnaire extends React.Component{
         super(props);
 
         this.state = {
-            actingChecked : false
+            checkboxes : INTERESTS.reduce(
+                (interests, interest) => ({
+                    ...interests, [interest] : false 
+                }), 
+                {}
+            )
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -20,8 +25,8 @@ export default class Questionnaire extends React.Component{
 
     //checkbox change event handler
     handleCheckboxChange(e){
-        const isCheckboxChecked = this.state.
-        this.setState({[e.target.value] : [e.target.checked]});
+        const checkboxValue = e.target.value;
+        this.setState({ ...this.state.checkboxes, [checkboxValue] : e.target.checked});
     }
 
 
@@ -29,7 +34,26 @@ export default class Questionnaire extends React.Component{
         return(
             <div>
                 <p>Please select every option that you are interested in.</p>
-                <FormControlLabel 
+                {INTERESTS.map(interest => {
+                    const interestChecked = interest.toLowerCase() + "Checked";
+                    return <FormControlLabel 
+                        control = {
+                            <Checkbox 
+                                checked={this.state.checkboxes[interestChecked]}
+                                onChange={this.handleCheckboxChange}
+                                value={interestChecked}
+                            />
+                        }
+                        label = {interest}
+                    />
+                })}
+            </div>
+        )
+    }
+}
+
+
+/*<FormControlLabel 
                     control={
                         <Checkbox checked={this.state.actingChecked}
                             onChange={this.handleCheckboxChange}
@@ -37,8 +61,4 @@ export default class Questionnaire extends React.Component{
                         />
                     }
                     label="Acting"
-                />
-            </div>
-        )
-    }
-}
+                />*/ 
