@@ -3,12 +3,15 @@ import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Button from '@material-ui/core/Button';
+
 
 
 //interests array
 const INTERESTS = ["Acting", "Dancing", "Chess", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
-//questions and answers
+//questions array
 const QUESTIONS = ["What would you like to drink today?", "What would you like to eat today?"];
+//answers arrays
 const q1Answers = ["Prefer Not To Answer", "Dr. Pepper", "Lemonade", "Topo Chico", "Sweet Tea"];
 const q2Answers = ["Prefer Not To Answer", "Spaghetti", "Burger", "Orange Chicken", "Tacos", "Fruit Salad"];
 const ANSWERS = [q1Answers, q2Answers];
@@ -32,11 +35,14 @@ export default class Questionnaire extends React.Component{
                     ...questions, [question] : "Prefer Not To Answer"
                 }),
                 {}
-            )
+            ),
+
+            errorMessage : ""
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleOptionSelect = this.handleOptionSelect.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     //checkbox change event handler, changes checkbox and updates the state
@@ -57,6 +63,16 @@ export default class Questionnaire extends React.Component{
                 ...prevState.filters, [question] : selectedAnswer
             }
         }));
+    }
+
+    //handles submit
+    onSubmit(){
+        if(!Object.values(this.state.checkboxes).includes(true)){
+            this.setState({errorMessage : "You must select at least one interest."});
+        }
+        else{
+            
+        }
     }
 
 
@@ -110,6 +126,14 @@ export default class Questionnaire extends React.Component{
                         })}
                     </div>
                 </div>
+
+                <div>
+                    <Button variant="contained" onClick={this.onSubmit}>
+                        View your matched clubs!
+                    </Button>
+                </div>
+
+                <p>{this.state.errorMessage}</p>
             </div>
         )
     }
