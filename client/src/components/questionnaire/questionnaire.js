@@ -110,7 +110,6 @@ export default class Questionnaire extends React.Component{
                         })}
                     </div>
                 </div>
-
             </div>
         )
     }
