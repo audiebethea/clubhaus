@@ -2,6 +2,10 @@
 
 
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import FilledInput from '@material-ui/core/FilledInput';
+
+
 
 //supported universities
 const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
@@ -20,6 +24,7 @@ export default class UniversitySelect extends React.Component{
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleOptionClicked = this.handleOptionClicked.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
@@ -27,6 +32,11 @@ export default class UniversitySelect extends React.Component{
     //input and current matching universities fields
     handleInputChange(e){
         this.setState({input : e.target.value});
+    }
+
+    //put clicked option into the search field
+    handleOptionClicked(selectedUniversity){
+        this.setState({input : selectedUniversity});
     }
 
     //gets colleges from this university and move to the next page
@@ -45,26 +55,37 @@ export default class UniversitySelect extends React.Component{
     render(){
         return(
             <div>
-                <p className="input-directions">Search for your university using the search bar!</p>
+                <p className="input-directions">
+                    Search for your university using the search bar, 
+                    or click on a university listed below!
+                </p>
 
-                <input 
-                    className="university-input" 
+                <FilledInput 
+                    name="university-input" 
                     onChange={this.handleInputChange} 
-                    placeholder='Enter your university here' 
+                    placeholder='Enter your university here'
+                    value={this.state.input} 
                 />
 
                 <div>
                     <p>Supported Universities:</p>
-                    <ul>
-                        {UNIVERSITIES.map(university => {
-                            return <li>{university}</li>
+                        {UNIVERSITIES.map((university, index) => {
+                            if(index !== UNIVERSITIES.length - 1){
+                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
+                                    {university} - 
+                                </p>
+                            }
+                            else{
+                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
+                                    {university}
+                                </p>
+                            }
                         })}
-                    </ul>
                 </div>
 
-                <button className="submit-button" onClick={this.onSubmit}>
+                <Button variant = "contained" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
-                </button>
+                </Button>
 
                 <p className="error-message">{this.state.errorMessage}</p>
             </div>
