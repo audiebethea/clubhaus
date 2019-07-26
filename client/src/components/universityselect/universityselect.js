@@ -14,7 +14,7 @@ const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University
 //can be grabbed from the database for that particular university
 export default class UniversitySelect extends React.Component{
 
-    //initialize state and bind the onChangeHandler functio
+    //initialize state and bind the onChangeHandler function
     constructor(props){
         super(props);
 
@@ -34,7 +34,8 @@ export default class UniversitySelect extends React.Component{
         this.setState({input : e.target.value});
     }
 
-    handleOptionClicked(e, selectedUniversity){
+    //put clicked option into the search field
+    handleOptionClicked(selectedUniversity){
         this.setState({input : selectedUniversity});
     }
 
@@ -47,7 +48,7 @@ export default class UniversitySelect extends React.Component{
         }
         //continue on with submitting
         else{
-            
+            this.props.gotoPage("Questionnaire");
         }
     }
 
@@ -70,12 +71,12 @@ export default class UniversitySelect extends React.Component{
                     <p>Supported Universities:</p>
                         {UNIVERSITIES.map((university, index) => {
                             if(index !== UNIVERSITIES.length - 1){
-                                return <p onClick = {(event) => {this.handleOptionClicked(event, university)}}>
+                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
                                     {university} - 
                                 </p>
                             }
                             else{
-                                return <p onClick = {(event) => {this.handleOptionClicked(event, university)}}>
+                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
                                     {university}
                                 </p>
                             }

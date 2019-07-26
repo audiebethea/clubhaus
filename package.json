@@ -10,6 +10,7 @@
   "author": "Audie Bethea",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.2.1",
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.1",
     "create-react-app": "^3.0.1",
