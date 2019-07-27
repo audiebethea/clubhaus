@@ -71,7 +71,7 @@ export default class Questionnaire extends React.Component{
             this.setState({errorMessage : "You must select at least one interest."});
         }
         else{
-            
+            this.props.gotoPage("Results");
         }
     }
 
