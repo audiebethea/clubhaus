@@ -10,6 +10,7 @@ import CardContent from '@material-ui/core/CardContent';
 //clubs should appear in order of match percent, then recent fb activity
 const club1 = {
     name : "Sky @ UT Austin",
+    logoLink : "https://se-infra-imageserver2.azureedge.net/clink/images/0194ab57-32ab-4123-abde-d411913e60402e9e7de8-d2a8-4c55-95c4-1322f50f9130.jpg?preset=med-sq",
     matchPercent : "78",
     matchedInterests : ["Meditation", "Well Being", "Self Care"],
     clubLink : "https://utexas.campuslabs.com/engage/organization/artofliving",
@@ -18,19 +19,21 @@ const club1 = {
 };
 const club2 = {
     name : "Absolute Texxas",
+    logoLink : "https://se-infra-imageserver2.azureedge.net/clink/images/619e7f58-17c3-4a71-90f4-80e3ee2e3e37388ca14a-9b7e-47cd-8c12-5e1b5ec0d778.png?preset=med-sq",
     matchPercent : "65",
     matchedInterests : ["Social", "Greek Life"],
     clubLink : "https://utexas.campuslabs.com/engage/organization/absolutetexxas",
-    mostRecentFacebookActivity : "10102019",
+    mostRecentFacebookActivity : "10102018",
     facebookLink : "https://www.facebook.com/Absolute-Texxas-102591403180373/"
 };
 const club3 = {
     name : "American Constitution Society",
+    logoLink : "www.youtube.com",
     matchPercent : "31",
     matchedInterests : ["Political"],
     clubLink : "https://utexas.campuslabs.com/engage/organization/americanconstitutionsociety",
-    mostRecentFacebookActivity : "N/A",
-    facebookLink : "N/A"
+    mostRecentFacebookActivity : "",
+    facebookLink : ""
 }
 const clubs = [club1, club2, club3];
 
@@ -40,13 +43,13 @@ export default class Results extends React.Component{
     constructor(props){
         super(props);
 
-
+        this.checkIfActive = this.checkIfActive.bind(this);
     }
 
     //this function will check if the passed in dates are within 
     //one year of today's date
     checkIfActive(recentFBActivity){
-        if(recentFBActivity === "N/A"){
+        if(!recentFBActivity){
             return false;
         }
 
@@ -55,11 +58,11 @@ export default class Results extends React.Component{
         const recentFBActivityMonth = parseInt(recentFBActivity.substring(2, 4));
         const recentFBActivityDate = parseInt(recentFBActivity.substring(0, 1));
 
-        const recentTotal = (recentFBActivityYear * 365) + (recentFBActivityMonth - 1) + recentFBActivityDate;
+        const recentTotal = (recentFBActivityYear * 365) + ((recentFBActivityMonth - 1) * 30.5) + recentFBActivityDate;
 
         //count up total days for this date
         const today = new Date();
-        const todaysTotal = (today.getFullYear * 365) + (today.getMonth * 31) + today.getDate;
+        const todaysTotal = (today.getFullYear() * 365) + (today.getMonth() * 30.5) + today.getDate();
 
         //return whether these dates are within a year of each other or not
         return recentTotal + 365 >= todaysTotal;
@@ -68,19 +71,29 @@ export default class Results extends React.Component{
     render(){
         return(
             <div>
-                <Card> 
-                    <CardContent>
-                        <h3>{clubs[0].name}</h3>
-                        <p align = "start">
-                            Match % : ${clubs[0].matchPercent}
-                        </p>
-                        <p align = "start">
-                            Matched Interests : {clubs[0].matchedInterests.toString()}
-                        </p>
-                        <a href={clubs[0].clubLink} align="end">More Info About This Club</a>
-                    </CardContent>
-                </Card>
+                {clubs.map(club => {
+                    return (<Card> 
+                                <CardContent>
+                                    <h3>{club.name}</h3>
+                                    <img src={club.logoLink} alt="(Not Found)"></img>
+                                    <p align = "start">
+                                        Match % : {club.matchPercent}
+                                    </p>
+                                    <p align = "start">
+                                        Matched Interests : {club.matchedInterests.toString()}
+                                    </p>
+                                    <a href={club.clubLink} align="end">More Info About This Club</a>
+                                    {this.checkIfActive(club.mostRecentFacebookActivity) ? <p></p> : 
+                                        <p>
+                                            It has been over 365 days since this club's last facebook
+                                            post, so it is likely that this club is no longer active.
+                                        </p>
+                                    }
+                                </CardContent>
+                            </Card>)
+                })}
             </div>
         )
     }
 }
+
