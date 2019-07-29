@@ -1,7 +1,7 @@
 //import statements
 import React from 'react';
 import UniversitySelect from './universityselect/universityselect.js';
-//import Questionnaire from './questionnaire.js';
+import Questionnaire from './questionnaire/questionnaire.js';
 //import Results from './results.js';
 
 
@@ -35,7 +35,12 @@ export default class Base extends React.Component{
                         <UniversitySelect gotoPage={this.gotoPage} />
                     </div>
                 );
-            
+            case "Questionnaire":
+                return(
+                    <div>
+                        <Questionnaire gotoPage={this.gotoPage} />
+                    </div>
+                );
         }
     }
 }
