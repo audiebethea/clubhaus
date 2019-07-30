@@ -14,7 +14,7 @@ const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University
 //can be grabbed from the database for that particular university
 export default class UniversitySelect extends React.Component{
 
-    //initialize state and bind the onChangeHandler functio
+    //initialize state and bind the onChangeHandler function
     constructor(props){
         super(props);
 
