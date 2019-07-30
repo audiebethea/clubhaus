@@ -1,6 +1,9 @@
 //This file is the javascript used for the questionnaire portion of the app
 import React from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormControl';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
@@ -25,7 +28,7 @@ export default class Questionnaire extends React.Component{
         this.state = {
             checkboxes : INTERESTS.reduce(
                 (interests, interest) => ({
-                    ...interests, [interest] : false 
+                    ...interests, [interest] : "Neutral" 
                 }), 
                 {}
             ),
@@ -46,11 +49,10 @@ export default class Questionnaire extends React.Component{
     }
 
     //checkbox change event handler, changes checkbox and updates the state
-    handleCheckboxChange(e){
-        const checkboxName = e.target.value;
+    handleCheckboxChange(checkboxName, newStatus){
         this.setState(prevState => ({
             checkboxes : {
-                ...prevState.checkboxes, [checkboxName] : !prevState.checkboxes[checkboxName]
+                ...prevState.checkboxes, [checkboxName] : newStatus
             }
         }))        
     }
@@ -67,7 +69,7 @@ export default class Questionnaire extends React.Component{
 
     //handles submit
     onSubmit(){
-        if(!Object.values(this.state.checkboxes).includes(true)){
+        if(!Object.values(this.state.checkboxes).includes("Interested")){
             this.setState({errorMessage : "You must select at least one interest."});
         }
         else{
@@ -83,19 +85,54 @@ export default class Questionnaire extends React.Component{
                     <h1>INTERESTS</h1>
                     <p>
                         These answers will be used to match you to clubs that you may
-                        be interested in. Please select every option that interests you.
+                        be interested in. Please specify if each activity is particularly 
+                        interesting or disinteresting to you, and leave the rest at neutral.
+                        You will not be shown clubs that contain activities that you find
+                        disinteresting.
                     </p>
                     {INTERESTS.map(interest => {
-                        return <FormControlLabel 
-                            control = {
-                                <Checkbox 
-                                    checked={this.state.checkboxes[interest]}
-                                    onChange={this.handleCheckboxChange}
-                                    value={interest}
-                                />
-                            }
-                            label = {interest}
-                        />
+                        return (
+                            <div>
+                                <FormControl component="fieldset">
+                                    <FormLabel component="legend">{interest}</FormLabel>
+                                    <RadioGroup aria-label="position" name="position" 
+                                        onChange = {event => {
+                                            this.handleCheckboxChange(interest, event.target.value)
+                                        }} row>
+                                            <FormControlLabel 
+                                                label = "Interested"
+                                                labelPlacement = "Top"
+                                                control={
+                                                    <Radio 
+                                                        checked = {this.state.checkboxes[interest] === "Interested"}
+                                                    />
+                                                }
+                                                value="Interested"
+                                            />
+                                            <FormControlLabel 
+                                                label = "Neutral"
+                                                labelPlacement = "Top"
+                                                control = {
+                                                    <Radio 
+                                                        checked = {this.state.checkboxes[interest] === "Neutral"}
+                                                    />
+                                                }
+                                                value="Neutral"
+                                            />
+                                            <FormControlLabel 
+                                                label = "Not Interested"
+                                                labelPlacement = "Top"
+                                                control={
+                                                    <Radio 
+                                                        checked = {this.state.checkboxes[interest] === "Not Interested"}
+                                                    />
+                                                }
+                                                value="Not Interested"
+                                            />
+                                    </RadioGroup>
+                                </FormControl>
+                            </div>
+                        )
                     })}
                 </div>
 
@@ -118,7 +155,7 @@ export default class Questionnaire extends React.Component{
                                         children = {answersToQuestion.map(answer => {
                                             return <option value={answer}>{answer}</option>
                                         })}
-                                        onChange = {(event) => {this.handleOptionSelect(event, question)}}
+                                        onChange = {event => {this.handleOptionSelect(event, question)}}
                                         question = {question}
                                     />
                                 </div>
