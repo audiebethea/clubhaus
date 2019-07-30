@@ -4,8 +4,14 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import FilledInput from '@material-ui/core/FilledInput';
+import { makeStyles } from '@material-ui/styles';
+import './universityselect.css';
 
-
+const useStyles = makeStyles({
+    inputuniverisity : {
+        color : 'red'
+    }
+})
 
 //supported universities
 const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
@@ -27,6 +33,8 @@ export default class UniversitySelect extends React.Component{
         this.handleOptionClicked = this.handleOptionClicked.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
+
 
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
@@ -55,12 +63,13 @@ export default class UniversitySelect extends React.Component{
     render(){
         return(
             <div>
-                <p className="input-directions">
+                <p className="inputdirections">
                     Search for your university using the search bar, 
                     or click on a university listed below!
                 </p>
 
                 <FilledInput 
+                    className={useStyles().inputuniverisity}
                     name="university-input" 
                     onChange={this.handleInputChange} 
                     placeholder='Enter your university here'
