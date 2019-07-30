@@ -74,6 +74,7 @@ export default class Questionnaire extends React.Component{
         }
         else{
             this.setState({errorMessage : ""});
+            this.props.gotoPage("Results");
         }
     }
 

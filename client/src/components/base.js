@@ -2,7 +2,7 @@
 import React from 'react';
 import UniversitySelect from './universityselect/universityselect.js';
 import Questionnaire from './questionnaire/questionnaire.js';
-//import Results from './results.js';
+import Results from './results/results.js';
 
 
 
@@ -41,21 +41,14 @@ export default class Base extends React.Component{
                         <Questionnaire gotoPage={this.gotoPage} />
                     </div>
                 );
-        }
-    }
-}
-
-
-/*case "Questionnaire":
-                return(
-                    <div>
-                        <Questionnaire gotoPage={this.gotoPage} />
-                    </div>
-                );
             case "Results":
                 return(
                     <div>
                         <Results gotoPage={this.gotoPage} />
                     </div>
                 );
-*/
+        }
+    }
+}
+
+
