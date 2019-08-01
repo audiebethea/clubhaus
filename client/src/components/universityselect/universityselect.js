@@ -2,16 +2,9 @@
 
 
 import React from 'react';
-import Button from '@material-ui/core/Button';
+import RedButton from './hocomponents/redbutton.js';
 import FilledInput from '@material-ui/core/FilledInput';
-import { makeStyles } from '@material-ui/styles';
 import './universityselect.css';
-
-const useStyles = makeStyles({
-    inputuniverisity : {
-        color : 'red'
-    }
-})
 
 //supported universities
 const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
@@ -69,7 +62,7 @@ export default class UniversitySelect extends React.Component{
                 </p>
 
                 <FilledInput 
-                    className={useStyles().inputuniverisity}
+                    className={"inputuniversity"}
                     name="university-input" 
                     onChange={this.handleInputChange} 
                     placeholder='Enter your university here'
@@ -92,9 +85,9 @@ export default class UniversitySelect extends React.Component{
                         })}
                 </div>
 
-                <Button variant = "contained" onClick={this.onSubmit}>
+                <RedButton variant = "contained" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
-                </Button>
+                </RedButton>
 
                 <p className="error-message">{this.state.errorMessage}</p>
             </div>
