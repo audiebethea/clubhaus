@@ -18,8 +18,8 @@ export default class UniversitySelect extends React.Component{
         super(props);
 
         this.state = {
-            input : "",
-            errorMessage : ""
+            input : this.props.chosenUniversity,
+            hideErrorMessage : true
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -43,12 +43,12 @@ export default class UniversitySelect extends React.Component{
     //gets colleges from this university and move to the next page
     onSubmit(){
         if(!UNIVERSITIES.includes(this.state.input)){
-            this.setState({errorMessage : "Sorry, we couldn't find any data on that university. "
-                + "Please check your spelling and make sure your university is on our list of supported "
-                + "universities."});
+            this.setState({hideErrorMessage : false});
         }
         //continue on with submitting
         else{
+            this.setState({hideErrorMessage : true})
+            this.props.updateUniversity(this.state.input);
             this.props.gotoPage("Questionnaire");
         }
     }
@@ -64,7 +64,13 @@ export default class UniversitySelect extends React.Component{
                     value={this.state.input}
                 />
 
-                <h2 style={{marginBottom : '3%'}}>OR</h2>
+                <p className="error-message" hidden={this.state.hideErrorMessage}>
+                    Sorry, we couldn't find any data on that university. 
+                    Please check your spelling and make sure your university is on our list of supported
+                    universities.
+                </p>
+
+                <h2 style={{marginBottom : '3%', marginTop : '3%'}}>OR</h2>
 
                 <h4>select a university from the supported universities below:</h4>
 
@@ -87,7 +93,6 @@ export default class UniversitySelect extends React.Component{
                     Take your university's club questionnaire!
                 </Button>
 
-                <p className="error-message">{this.state.errorMessage}</p>
             </div>
         )
     }

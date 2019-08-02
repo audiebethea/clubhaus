@@ -6,11 +6,11 @@ import FilledInput from '@material-ui/core/FilledInput';
 const styles = {
     root : {
         color : 'black',
-        margin : '6% 0% 2%',
+        marginTop : '6%',
     },
     input : {
         fontFamily : 'Verdana, Geneva, sans-serif',
-        fontSize : '115%',
+        fontSize : '135%',
         padding : '2.5% 280px',
         width: '400px',
         textAlign : 'center',
