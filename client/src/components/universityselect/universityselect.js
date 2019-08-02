@@ -1,13 +1,13 @@
-//in this implementation, there will be no dropdown menu, just a list of supported universities
-
-
+//import statements
 import React from 'react';
-import RedButton from './hocomponents/redbutton.js';
-import FilledInput from '@material-ui/core/FilledInput';
+import Button from '@material-ui/core/Button';
+import LargeFilledInput from '../higherordercomponents/largefilledinput.js';
 import './universityselect.css';
 
 //supported universities
-const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University"];
+const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University", "Rice University",
+                        "Baylor University", "Texas Tech University", "Southern Methodist University", "University of Houston",
+                        "Eastfield College", "Richland College", "Texas State University", "North Texas University"];
 
 //this component is used to determine the user's university so clubs and colleges
 //can be grabbed from the database for that particular university
@@ -56,38 +56,36 @@ export default class UniversitySelect extends React.Component{
     render(){
         return(
             <div>
-                <p className="inputdirections">
-                    Search for your university using the search bar, 
-                    or click on a university listed below!
-                </p>
+                <header className="header">CLUBHAUS</header>
 
-                <FilledInput 
-                    className={"inputuniversity"}
-                    name="university-input" 
+                <LargeFilledInput 
                     onChange={this.handleInputChange} 
-                    placeholder='Enter your university here'
-                    value={this.state.input} 
+                    placeholder='Enter your university here...'
+                    value={this.state.input}
                 />
 
-                <div>
-                    <p>Supported Universities:</p>
-                        {UNIVERSITIES.map((university, index) => {
-                            if(index !== UNIVERSITIES.length - 1){
-                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
-                                    {university} - 
-                                </p>
-                            }
-                            else{
-                                return <p onClick = {(event) => {this.handleOptionClicked(university)}}>
-                                    {university}
-                                </p>
-                            }
-                        })}
-                </div>
+                <h2 style={{marginBottom : '3%'}}>OR</h2>
 
-                <RedButton variant = "contained" onClick={this.onSubmit}>
+                <h4>select a university from the supported universities below:</h4>
+
+                <p className="clublist">
+                    {UNIVERSITIES.map((university, index) => {
+                        const bullet = index !== UNIVERSITIES.length - 1 ? <span>&#8226;</span> : "";
+                        return(
+                            <>
+                                <span  className="cluboption"
+                                    onClick = {() => {this.handleOptionClicked(university)}}>
+                                        {university} 
+                                </span>
+                                <span>&nbsp;{bullet}&nbsp;</span>
+                            </>
+                        )
+                    })}
+                </p>
+
+                <Button variant = "contained" onClick={this.onSubmit}>
                     Take your university's club questionnaire!
-                </RedButton>
+                </Button>
 
                 <p className="error-message">{this.state.errorMessage}</p>
             </div>
