@@ -53,7 +53,7 @@ export default class Questionnaire extends React.Component{
         if(Object.keys(this.props.chosenInterests).length !== 0){
             this.setState({checkboxes : this.props.chosenInterests})
         }
-        if(Object.keys(this.props.chosenInterests).length !== 0){
+        if(Object.keys(this.props.chosenFilters).length !== 0){
             this.setState({filters : this.props.chosenFilters})
         }
     }
@@ -171,7 +171,7 @@ export default class Questionnaire extends React.Component{
                                             return <option value={answer}>{answer}</option>
                                         })}
                                         onChange = {event => {this.handleOptionSelect(event, question)}}
-                                        question = {question}
+                                        value = {this.state.filters[question]}
                                     />
                                 </div>
                             )

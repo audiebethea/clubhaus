@@ -17,7 +17,6 @@ export default class Base extends React.Component{
             curPage : "UniversitySelect",
             chosenUniversity : "",
             chosenInterests : {},
-            chosenDisinterests : {},
             chosenFilters : {}
         }
 
@@ -68,7 +67,6 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage} 
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
-                            chosenDisinterests={this.state.chosenDisinterests}
                             chosenFilters={this.state.chosenFilters}
                             updateInterests={this.updateInterests}
                             updateDisinterests={this.updateDisinterests}
@@ -83,7 +81,6 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
-                            chosenDisinterests={this.state.chosenDisinterests}
                             chosenFilters={this.state.chosenFilters}
                         />
                     </div>
