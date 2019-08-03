@@ -48,6 +48,16 @@ export default class Questionnaire extends React.Component{
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    //initializes the state to previous entries if they exist
+    componentDidMount(){
+        if(Object.keys(this.props.chosenInterests).length !== 0){
+            this.setState({checkboxes : this.props.chosenInterests})
+        }
+        if(Object.keys(this.props.chosenInterests).length !== 0){
+            this.setState({filters : this.props.chosenFilters})
+        }
+    }
+
     //checkbox change event handler, changes checkbox and updates the state
     handleCheckboxChange(checkboxName, newStatus){
         this.setState(prevState => ({
@@ -68,13 +78,17 @@ export default class Questionnaire extends React.Component{
     }
 
     //handles submit
-    onSubmit(){
-        if(!Object.values(this.state.checkboxes).includes("Interested")){
+    onSubmit(destination){
+        //check to make sure they checked at least one thing as interested
+        if(destination === 'Results' && !Object.values(this.state.checkboxes).includes("Interested")){
             this.setState({errorMessage : "You must select at least one interest."});
         }
+        //hides error message and sets base.js's state to track interest & filter responses
         else{
             this.setState({errorMessage : ""});
-            this.props.gotoPage("Results");
+            this.props.updateInterests(this.state.checkboxes);
+            this.props.updateFilters(this.state.filters);
+            this.props.gotoPage(destination);
         }
     }
 
@@ -165,11 +179,13 @@ export default class Questionnaire extends React.Component{
                     </div>
                 </div>
 
-                <div>
-                    <Button variant="contained" onClick={this.onSubmit}>
-                        View your matched clubs!
-                    </Button>
-                </div>
+                <Button variant="contained" onClick={() => this.onSubmit('Results')}>
+                    View your matched clubs!
+                </Button>
+
+                <Button variant='contained' onClick={() => this.onSubmit('UniversitySelect')}>
+                    Back to University Seleciton
+                </Button>
 
                 <p>{this.state.errorMessage}</p>
             </div>

@@ -16,8 +16,9 @@ export default class Base extends React.Component{
         this.state = {
             curPage : "UniversitySelect",
             chosenUniversity : "",
-            chosenInterests : [],
-            chosenFilters : []
+            chosenInterests : {},
+            chosenDisinterests : {},
+            chosenFilters : {}
         }
 
         this.gotoPage = this.gotoPage.bind(this);
@@ -41,6 +42,7 @@ export default class Base extends React.Component{
         this.setState({chosenInterests : interests});
     }
 
+    //accepts filters from questionniare, passed to results to make call
     updateFilters(filters){
         this.setState({chosenFilters : filters});
     }
@@ -65,7 +67,11 @@ export default class Base extends React.Component{
                         <Questionnaire 
                             gotoPage={this.gotoPage} 
                             chosenUniversity={this.state.chosenUniversity}
+                            chosenInterests={this.state.chosenInterests}
+                            chosenDisinterests={this.state.chosenDisinterests}
+                            chosenFilters={this.state.chosenFilters}
                             updateInterests={this.updateInterests}
+                            updateDisinterests={this.updateDisinterests}
                             updateFilters={this.updateFilters}
                         />
                     </div>
@@ -77,6 +83,7 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
+                            chosenDisinterests={this.state.chosenDisinterests}
                             chosenFilters={this.state.chosenFilters}
                         />
                     </div>
