@@ -59,7 +59,8 @@ export default class UniversitySelect extends React.Component{
                 <header className="header">CLUBHAUS</header>
 
                 <LargeFilledInput 
-                    onChange={this.handleInputChange} 
+                    onChange={this.handleInputChange}
+                    onIconButtonClick={this.onSubmit} 
                     placeholder='Enter your university here...'
                     value={this.state.input}
                 />
@@ -89,8 +90,11 @@ export default class UniversitySelect extends React.Component{
                     })}
                 </p>
 
-                <Button variant = "contained" onClick={this.onSubmit}>
-                    Take your university's club questionnaire!
+                <Button 
+                    variant = 'contained' 
+                    onClick={this.onSubmit} 
+                >
+                        Take your university's club questionnaire!
                 </Button>
 
             </div>
