@@ -2,6 +2,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import LargeFilledInput from '../higherordercomponents/largefilledinput.js';
+import HeaderBar from '../higherordercomponents/headerbar.js'
 import './universityselect.css';
 
 //supported universities
@@ -28,7 +29,6 @@ export default class UniversitySelect extends React.Component{
     }
 
 
-
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
     handleInputChange(e){
@@ -53,10 +53,13 @@ export default class UniversitySelect extends React.Component{
         }
     }
 
+
+
+    //render function
     render(){
         return(
             <div>
-                <header className="header">CLUBHAUS</header>
+                <HeaderBar showBackButton={true}/>
 
                 <LargeFilledInput 
                     onChange={this.handleInputChange}

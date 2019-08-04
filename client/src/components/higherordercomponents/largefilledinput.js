@@ -21,9 +21,6 @@ const styles = {
         padding : '2.5% 280px',
         width: '400px',
         textAlign : 'center',
-    },
-    iconbutton : {
-        color : 'black'
     }
 }
 
@@ -42,7 +39,7 @@ function LargeFilledInput(props){
                     children={
                         <IconButton
                             onClick={props.onIconButtonClick}
-                            style={styles.iconbutton}
+                            style={{color : 'black'}}
                             children={<ArrowForwardRounded/>}
                             tooltip='Continue'
                         />
