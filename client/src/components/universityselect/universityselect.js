@@ -59,7 +59,7 @@ export default class UniversitySelect extends React.Component{
     render(){
         return(
             <div>
-                <HeaderBar showBackButton={true}/>
+                <HeaderBar showBackButton={false}/>
 
                 <LargeFilledInput 
                     onChange={this.handleInputChange}

@@ -40,7 +40,7 @@ function HeaderBar(props) {
                 </img>
             </Toolbar>
         </AppBar>
-        <hr style={{marginBottom : '3%'}}></hr>
+        <hr style={{marginTop : '8%'}}></hr>
         </>
     )
 }

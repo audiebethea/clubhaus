@@ -13,7 +13,7 @@ import ArrowForwardRounded from '@material-ui/icons/ArrowForwardRounded';
 const styles = {
     root : {
         color : 'black',
-        marginTop : '6%',
+        marginTop : '5%',
     },
     input : {
         fontFamily : 'Verdana, Geneva, sans-serif',

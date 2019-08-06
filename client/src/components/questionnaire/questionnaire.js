@@ -1,4 +1,6 @@
 //This file is the javascript used for the questionnaire portion of the app
+
+//import statements
 import React from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -7,6 +9,8 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
+import HeaderBar from '../higherordercomponents/headerbar.js';
+import './questionnaire.css';
 
 
 
@@ -96,60 +100,63 @@ export default class Questionnaire extends React.Component{
     render(){
         return(
             <div>
-                <div>
-                    <h1>INTERESTS</h1>
-                    <p>
-                        These answers will be used to match you to clubs that you may
-                        be interested in. Please specify if each activity is particularly 
-                        interesting or disinteresting to you, and leave the rest at neutral.
-                        You will not be shown clubs that contain activities that you find
-                        disinteresting.
-                    </p>
-                    {INTERESTS.map(interest => {
-                        return (
-                            <div>
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">{interest}</FormLabel>
-                                    <RadioGroup aria-label="position" name="position" 
-                                        onChange = {event => {
-                                            this.handleCheckboxChange(interest, event.target.value)
-                                        }} row>
-                                            <FormControlLabel 
-                                                label = "Interested"
-                                                labelPlacement = "Top"
-                                                control={
-                                                    <Radio 
-                                                        checked = {this.state.checkboxes[interest] === "Interested"}
-                                                    />
-                                                }
-                                                value="Interested"
-                                            />
-                                            <FormControlLabel 
-                                                label = "Neutral"
-                                                labelPlacement = "Top"
-                                                control = {
-                                                    <Radio 
-                                                        checked = {this.state.checkboxes[interest] === "Neutral"}
-                                                    />
-                                                }
-                                                value="Neutral"
-                                            />
-                                            <FormControlLabel 
-                                                label = "Not Interested"
-                                                labelPlacement = "Top"
-                                                control={
-                                                    <Radio 
-                                                        checked = {this.state.checkboxes[interest] === "Not Interested"}
-                                                    />
-                                                }
-                                                value="Not Interested"
-                                            />
-                                    </RadioGroup>
-                                </FormControl>
-                            </div>
-                        )
-                    })}
-                </div>
+                <HeaderBar showBackButton={true} gotoPage={this.onSubmit} destination='UniversitySelect'/>
+
+                <h1 className='section-title'>INTERESTS</h1>
+                <p style={{margin : '0% 12%'}}>
+                    These answers will be used to match you to clubs that you may
+                    be interested in. Please specify if each activity is particularly 
+                    interesting or uninteresting to you, and leave the rest at neutral.
+                    You will not be shown clubs that contain activities that you find
+                    uninteresting.
+                </p>
+
+                <hr className='underline'></hr>
+
+                {INTERESTS.map(interest => {
+                    return (
+                        <div>
+                            <FormControl component="fieldset">
+                                <FormLabel component="legend">{interest}</FormLabel>
+                                <RadioGroup aria-label="position" name="position" 
+                                    onChange = {event => {
+                                        this.handleCheckboxChange(interest, event.target.value)
+                                    }} row>
+                                        <FormControlLabel 
+                                            label = "Interested"
+                                            labelPlacement = "Top"
+                                            control={
+                                                <Radio 
+                                                    checked = {this.state.checkboxes[interest] === "Interested"}
+                                                />
+                                            }
+                                            value="Interested"
+                                        />
+                                        <FormControlLabel 
+                                            label = "Neutral"
+                                            labelPlacement = "Top"
+                                            control = {
+                                                <Radio 
+                                                    checked = {this.state.checkboxes[interest] === "Neutral"}
+                                                />
+                                            }
+                                            value="Neutral"
+                                        />
+                                        <FormControlLabel 
+                                            label = "Not Interested"
+                                            labelPlacement = "Top"
+                                            control={
+                                                <Radio 
+                                                    checked = {this.state.checkboxes[interest] === "Not Interested"}
+                                                />
+                                            }
+                                            value="Not Interested"
+                                        />
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
+                    )
+                })}
 
                 <div>
                     <h1>QUESTIONS</h1>
@@ -179,13 +186,17 @@ export default class Questionnaire extends React.Component{
                     </div>
                 </div>
 
-                <Button variant="contained" onClick={() => this.onSubmit('Results')}>
-                    View your matched clubs!
-                </Button>
 
                 <Button variant='contained' onClick={() => this.onSubmit('UniversitySelect')}>
                     Back to University Seleciton
                 </Button>
+
+
+                <Button variant='contained' onClick={() => this.onSubmit('Results')}>
+                    View your matched clubs!
+                </Button>
+
+                
 
                 <p>{this.state.errorMessage}</p>
             </div>

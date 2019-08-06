@@ -1,0 +1,13 @@
+.section-title {
+    margin-top : 5%;
+    color: rgb(90, 201, 238);
+    text-shadow: -.02em -.02em 0 #000, .02em -.02em 0 #000, -.02em .02em 0 #000, .06em .06em 0 #000;
+    margin-bottom : 2%;
+    letter-spacing : .1em;
+}
+
+.underline {
+    color : rgb(102, 101, 101);
+    margin : 2% 17%;
+    border: 1px solid;
+}
