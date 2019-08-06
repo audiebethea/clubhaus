@@ -74,9 +74,9 @@ export default class UniversitySelect extends React.Component{
                     universities.
                 </p>
 
-                <h2 style={{marginBottom : '3%', marginTop : '3%'}}>OR</h2>
+                <h2 style={{margin : '5vh', fontSize : '2vmax'}}>OR</h2>
 
-                <h4>select a university from the supported universities below:</h4>
+                <h4 style={{fontSize : '1.5vmax'}}>select a university from the supported universities below:</h4>
 
                 <p className="clublist">
                     {UNIVERSITIES.map((university, index) => {
@@ -87,7 +87,7 @@ export default class UniversitySelect extends React.Component{
                                     onClick = {() => {this.handleOptionClicked(university)}}>
                                         {university} 
                                 </span>
-                                <span>&nbsp;{bullet}&nbsp;</span>
+                                <span style={{fontSize : '1.5vmax'}}>&nbsp;{bullet}&nbsp;</span>
                             </>
                         )
                     })}

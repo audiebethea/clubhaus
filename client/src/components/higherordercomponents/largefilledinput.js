@@ -13,7 +13,7 @@ import ArrowForwardRounded from '@material-ui/icons/ArrowForwardRounded';
 const styles = {
     root : {
         color : 'black',
-        marginTop : '5%'
+        marginTop : '8vh'
     },
     input : {
         fontFamily : 'Verdana, Geneva, sans-serif',
@@ -41,7 +41,6 @@ function LargeFilledInput(props){
                             onClick={props.onIconButtonClick}
                             style={{color : 'black'}}
                             children={<ArrowForwardRounded/>}
-                            tooltip='Continue'
                         />
                     }
                 />

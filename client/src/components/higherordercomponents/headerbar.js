@@ -11,12 +11,12 @@ const styles = {
     appbarRoot : {
         display : 'block',
         backgroundColor : 'rgb(90, 201, 238)',
-        padding : '2%',
+        padding : '2vh 0%',
     },
     buttonRoot : {
         backgroundColor : 'white',
         color : 'black',
-        padding : '.5% 3%'
+        padding : '.5vh 3vw'
     }
 }
 
@@ -34,13 +34,13 @@ function HeaderBar(props) {
                     </Button> 
                     : null
                 }
-                <img style={{height:'5%', width:'5%', marginLeft:'47%', marginRight:'50%'}} 
+                <img style={{height:'5vmax', width:'5vmax', marginLeft:'47vw', marginRight:'50vw'}} 
                     src='https://i.pinimg.com/originals/87/dc/47/87dc47b44d7bdf288fbdfaea95585b70.jpg' 
                     alt=''>
                 </img>
             </Toolbar>
         </AppBar>
-        <hr style={{marginTop : '8%'}}></hr>
+        <hr style={{marginTop : '12vh'}}></hr>
         </>
     )
 }

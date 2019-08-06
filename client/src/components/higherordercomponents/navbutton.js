@@ -4,7 +4,10 @@ import {withStyles} from '@material-ui/styles';
 import Button from '@material-ui/core/Button';
 
 const styles = {
-
+    root : {
+        fontSize : '1.3vmax',
+        margin : '1% 0% 5%'
+    }
 }
 
 function NavButton(props) {
@@ -14,7 +17,7 @@ function NavButton(props) {
         <>
             <Button 
                 variant='contained' 
-                style={{root : classes.root}}
+                classes={{root : classes.root}}
                 onClick={props.onClick} 
             >
                 {props.text}    
