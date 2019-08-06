@@ -11,3 +11,8 @@
     margin : 2% 17%;
     border: 1px solid;
 }
+
+.checkbox-grid{
+    display : grid;
+    grid-template-columns: auto auto auto;
+}

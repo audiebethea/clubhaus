@@ -2,20 +2,16 @@
 
 //import statements
 import React from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormLabel from '@material-ui/core/FormControl';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import Button from '@material-ui/core/Button';
 import HeaderBar from '../higherordercomponents/headerbar.js';
+import CheckboxGrid from '../higherordercomponents/checkboxgrid.js';
 import './questionnaire.css';
 
 
 
 //interests array
-const INTERESTS = ["Acting", "Dancing", "Chess", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
+const INTERESTS = ["Acting", "Bowling", "Chess", "Dancing", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
 //questions array
 const QUESTIONS = ["What would you like to drink today?", "What would you like to eat today?"];
 //answers arrays
@@ -113,78 +109,38 @@ export default class Questionnaire extends React.Component{
 
                 <hr className='underline'></hr>
 
-                {INTERESTS.map(interest => {
-                    return (
+                <CheckboxGrid 
+                    interests={INTERESTS} 
+                    handleCheckboxChange={this.handleCheckboxChange}   
+                    stateCheckboxes={this.state.checkboxes}
+                />
+
+                <h1 className='section-title'>QUESTIONS</h1>
+                <p style={{margin : '0% 12%'}}>
+                    Your answers for these questions will be used to filter out
+                    clubs that you will likely not be interested in. If some of the
+                    questions feel too personal or you would not like to have your 
+                    clubs filtered this way, please use the "Prefer not to answer"
+                    option.
+                </p>
+
+                <hr className='underline'></hr>
+
+                {QUESTIONS.map((question, index) => {
+                    const answersToQuestion = ANSWERS[index];
+                    return(
                         <div>
-                            <FormControl component="fieldset">
-                                <FormLabel component="legend">{interest}</FormLabel>
-                                <RadioGroup aria-label="position" name="position" 
-                                    onChange = {event => {
-                                        this.handleCheckboxChange(interest, event.target.value)
-                                    }} row>
-                                        <FormControlLabel 
-                                            label = "Interested"
-                                            labelPlacement = "Top"
-                                            control={
-                                                <Radio 
-                                                    checked = {this.state.checkboxes[interest] === "Interested"}
-                                                />
-                                            }
-                                            value="Interested"
-                                        />
-                                        <FormControlLabel 
-                                            label = "Neutral"
-                                            labelPlacement = "Top"
-                                            control = {
-                                                <Radio 
-                                                    checked = {this.state.checkboxes[interest] === "Neutral"}
-                                                />
-                                            }
-                                            value="Neutral"
-                                        />
-                                        <FormControlLabel 
-                                            label = "Not Interested"
-                                            labelPlacement = "Top"
-                                            control={
-                                                <Radio 
-                                                    checked = {this.state.checkboxes[interest] === "Not Interested"}
-                                                />
-                                            }
-                                            value="Not Interested"
-                                        />
-                                </RadioGroup>
-                            </FormControl>
+                            <h2>{question}</h2>
+                            <NativeSelect 
+                                children = {answersToQuestion.map(answer => {
+                                    return <option value={answer}>{answer}</option>
+                                })}
+                                onChange = {event => {this.handleOptionSelect(event, question)}}
+                                value = {this.state.filters[question]}
+                            />
                         </div>
                     )
                 })}
-
-                <div>
-                    <h1>QUESTIONS</h1>
-                    <p>
-                        Your answers for these questions will be used to filter out
-                        clubs that you will likely not be interested in. If some of the
-                        questions feel too personal or you would not like to have your 
-                        clubs filtered this way, please use the "Prefer not to answer"
-                        option.
-                    </p>
-                    <div>
-                        {QUESTIONS.map((question, index) => {
-                            const answersToQuestion = ANSWERS[index];
-                            return(
-                                <div>
-                                    <h2>{question}</h2>
-                                    <NativeSelect 
-                                        children = {answersToQuestion.map(answer => {
-                                            return <option value={answer}>{answer}</option>
-                                        })}
-                                        onChange = {event => {this.handleOptionSelect(event, question)}}
-                                        value = {this.state.filters[question]}
-                                    />
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
 
 
                 <Button variant='contained' onClick={() => this.onSubmit('UniversitySelect')}>
