@@ -1,8 +1,8 @@
 //import statements
 import React from 'react';
-import Button from '@material-ui/core/Button';
 import LargeFilledInput from '../higherordercomponents/largefilledinput.js';
-import HeaderBar from '../higherordercomponents/headerbar.js'
+import HeaderBar from '../higherordercomponents/headerbar.js';
+import NavButton from '../higherordercomponents/navbutton.js';
 import './universityselect.css';
 
 //supported universities
@@ -93,12 +93,7 @@ export default class UniversitySelect extends React.Component{
                     })}
                 </p>
 
-                <Button 
-                    variant = 'contained' 
-                    onClick={this.onSubmit} 
-                >
-                        Take your university's club questionnaire!
-                </Button>
+                <NavButton text="Take your university's club questionniare!" onClick={this.onSubmit}/>
 
             </div>
         )
