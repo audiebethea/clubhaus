@@ -4,7 +4,8 @@ import {withStyles} from '@material-ui/styles';
 import AppBar  from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
-import ArrowBackRounded from '@material-ui/icons/ArrowBackRounded'
+import ArrowBackRounded from '@material-ui/icons/ArrowBackRounded';
+import clubhauslogo from '../../clubhauslogo.png';
 
 
 const styles = {
@@ -34,8 +35,8 @@ function HeaderBar(props) {
                     </Button> 
                     : null
                 }
-                <img style={{height:'5vmax', width:'5vmax', marginLeft:'47vw', marginRight:'50vw'}} 
-                    src='https://i.pinimg.com/originals/87/dc/47/87dc47b44d7bdf288fbdfaea95585b70.jpg' 
+                <img style={{height:'8.5vh', width:'8.5vw', left:'0', right:'0', margin:'0 auto'}} 
+                    src={clubhauslogo} 
                     alt=''>
                 </img>
             </Toolbar>
