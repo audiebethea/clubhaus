@@ -1,17 +1,17 @@
 .cluboption {
     color : rgb(102, 101, 101);
-    font-size : 1.4vmax;
+    font-size: calc(4px + 1.3vw);
 }
 .cluboption:hover {
     text-shadow: .25em .25em .5em rgb(90, 201, 238);
 }
 .clublist {
-    min-width: 60%;
+    min-width: 30%;
     max-width: 70%;
     left: 0;
     right: 0;
     margin: 0 auto 2%;
-    line-height: 3vmax;
+    line-height: calc(.8em + 3vmax);
 }
 .error-message {
     color: red;

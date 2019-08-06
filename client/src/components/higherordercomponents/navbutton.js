@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     root : {
-        fontSize : '1.3vmax',
-        margin : '1% 0% 5%'
+        fontSize : 'calc(4px + 1.3vw)',
+        margin : '2% 0% 5%'
     }
 }
 

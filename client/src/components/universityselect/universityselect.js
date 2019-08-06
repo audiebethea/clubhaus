@@ -74,9 +74,9 @@ export default class UniversitySelect extends React.Component{
                     universities.
                 </p>
 
-                <h2 style={{margin : '5vh', fontSize : '2vmax'}}>OR</h2>
+                <h2 style={{margin : '5vh', fontSize : 'calc(5px + 1.5vw)'}}>OR</h2>
 
-                <h4 style={{fontSize : '1.5vmax'}}>select a university from the supported universities below:</h4>
+                <h4 style={{fontSize : 'calc(5px + 1.3vw)'}}>select a university from the supported universities below:</h4>
 
                 <p className="clublist">
                     {UNIVERSITIES.map((university, index) => {
