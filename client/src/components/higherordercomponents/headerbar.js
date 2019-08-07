@@ -17,7 +17,9 @@ const styles = {
     buttonRoot : {
         backgroundColor : 'white',
         color : 'black',
-        padding : '.5vh 3vw'
+        padding : '.5vh 1vw',
+        fontSize : 'calc(3px + 1vw)',
+        float : 'left'
     }
 }
 
@@ -29,13 +31,13 @@ function HeaderBar(props) {
         <AppBar classes={{root : classes.appbarRoot}}>
             <Toolbar>
                 {props.showBackButton ? 
-                    <Button edge='start' classes={{root : classes.buttonRoot}} variant='contained' onClick={() => props.gotoPage(props.destination)}>
+                    <Button classes={{root : classes.buttonRoot}} variant='contained' onClick={() => props.gotoPage(props.destination)}>
                         <ArrowBackRounded />
                         Back
                     </Button> 
                     : null
                 }
-                <img style={{height:'8.5vh', width:'8.5vw', left:'0', right:'0', margin:'0 auto'}} 
+                <img style={{height:'calc(20px + 6vh)', width:'calc(20px + 6vw)', left:'0', right:'0', margin:'0 auto', position:'absolute'}} 
                     src={clubhauslogo} 
                     alt=''>
                 </img>
