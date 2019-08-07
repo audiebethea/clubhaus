@@ -12,7 +12,23 @@
     border: 1px solid;
 }
 
-.checkbox-grid{
-    display : grid;
-    grid-template-columns: auto auto auto;
+@media (min-width : 990px){
+    .checkbox-grid{
+        display : grid;
+        grid-template-columns: auto auto auto;
+    }
+}
+
+@media (min-width : 674px) and (max-width : 989px){
+    .checkbox-grid{
+        display : grid;
+        grid-template-columns: auto auto;
+    }
+}
+
+@media (max-width : 673px){
+    .checkbox-grid{
+        display : grid;
+        grid-template-columns: auto;
+    }
 }
