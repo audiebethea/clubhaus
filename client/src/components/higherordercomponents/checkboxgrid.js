@@ -18,7 +18,7 @@ const styles = {
     },
     radioChecked : {},
     radioGroup : {
-        ['@media (min-width:550px)'] : { // eslint-disable-line no-useless-computed-key
+        ['@media (min-width:600px)'] : { // eslint-disable-line no-useless-computed-key
             width: 'auto',
             height: 'auto',
             display: 'flex',
@@ -34,31 +34,27 @@ const styles = {
 
 function CheckboxGrid(props){
     const {classes} = props;
-    let labelPlacement = 'top';
-    if(Window.innerWidth < 550) {
-        labelPlacement = 'start'
-    }
 
     //returns a grid layout of labeled checkboxes for each interest
     return(
-            <div className='checkbox-grid'>
+            <div className='checkbox-grid' >
                 {props.interests.map(interest => {
                     return (
                         <div>
                             <FormControl component="fieldset">
-                                <FormLabel component="legend">
+                                <FormLabel component="legend" style={{marginBottom : '1.5em'}}>
                                     {interest}
                                 </FormLabel>
                                 <RadioGroup 
                                     onChange = {event => {
                                         props.handleCheckboxChange(interest, event.target.value)
                                     }}
-                                    className={classes.radioGroup}
+                                    row
                                 >
                                     <FormControlLabel
                                         classes={{label : classes.controlLabel}} 
                                         label = "Interested"
-                                        labelPlacement = {labelPlacement}
+                                        labelPlacement = 'top'
                                         control={
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Interested"}
@@ -70,7 +66,7 @@ function CheckboxGrid(props){
                                     <FormControlLabel 
                                         classes={{root : classes.controlLabelRoot}} 
                                         label = "Neutral"
-                                        labelPlacement = {labelPlacement}
+                                        labelPlacement = 'top'
                                         control = {
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Neutral"}
@@ -82,7 +78,7 @@ function CheckboxGrid(props){
                                     <FormControlLabel 
                                         classes={{root : classes.controlLabelRoot}}
                                         label = "Not Interested"
-                                        labelPlacement = {labelPlacement}
+                                        labelPlacement = 'top'
                                         control={
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Not Interested"}
