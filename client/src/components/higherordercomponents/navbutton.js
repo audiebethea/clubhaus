@@ -18,7 +18,7 @@ function NavButton(props) {
             <Button 
                 variant='contained' 
                 classes={{root : classes.root}}
-                onClick={props.onClick} 
+                onClick={() => props.onClick(props.destination)} 
             >
                 {props.text}    
             </Button>

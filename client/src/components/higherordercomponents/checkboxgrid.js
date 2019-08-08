@@ -17,15 +17,6 @@ const styles = {
         }
     },
     radioChecked : {},
-    radioGroup : {
-        ['@media (min-width:600px)'] : { // eslint-disable-line no-useless-computed-key
-            width: 'auto',
-            height: 'auto',
-            display: 'flex',
-            flexWrap: 'nowrap',
-            flexDirection: 'row'
-        }
-    },
     fclRoot : {
         marginBottom : '3%'
     }

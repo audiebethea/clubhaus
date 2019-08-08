@@ -37,7 +37,7 @@ function HeaderBar(props) {
                     </Button> 
                     : null
                 }
-                <img style={{height:'calc(20px + 6vh)', width:'calc(20px + 6vw)', left:'0', right:'0', margin:'0 auto', position:'absolute'}} 
+                <img style={{height:'calc(30px + 6vh)', width:'calc(70px + 4vw)', left:'0', right:'0', margin:'0 auto', position:'absolute'}} 
                     src={clubhauslogo} 
                     alt=''>
                 </img>

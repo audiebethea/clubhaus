@@ -40,7 +40,7 @@ export default class Questionnaire extends React.Component{
                 {}
             ),
 
-            errorMessage : ""
+            hideErrorMessage : true
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
@@ -81,11 +81,11 @@ export default class Questionnaire extends React.Component{
     onSubmit(destination){
         //check to make sure they checked at least one thing as interested
         if(destination === 'Results' && !Object.values(this.state.checkboxes).includes("Interested")){
-            this.setState({errorMessage : "You must select at least one interest."});
+            this.setState({hideErrorMessage : false});
         }
         //hides error message and sets base.js's state to track interest & filter responses
         else{
-            this.setState({errorMessage : ""});
+            this.setState({hideErrorMessage : true});
             this.props.updateInterests(this.state.checkboxes);
             this.props.updateFilters(this.state.filters);
             this.props.gotoPage(destination);
@@ -115,6 +115,8 @@ export default class Questionnaire extends React.Component{
                     stateCheckboxes={this.state.checkboxes}
                 />
 
+                <p style={{color:'red', fontSize:'calc(10px + .5vw)'}} hidden={this.state.hideErrorMessage}>You must select at least one interest.</p>
+
                 <h1 className='section-title'>QUESTIONS</h1>
                 <p style={{margin : '0% 12%'}}>
                     Your answers for these questions will be used to filter out
@@ -128,9 +130,8 @@ export default class Questionnaire extends React.Component{
 
                 <QuestionsLayout questions={QUESTIONS} answers={ANSWERS} onSelect={this.handleOptionSelect} stateFilters={this.state.filters}/>
 
-                <NavButton text="See your matched clubs!" onClick={this.onSubmit}/>
+                <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='Results'/>
 
-                <p>{this.state.errorMessage}</p>
             </div>
         )
     }

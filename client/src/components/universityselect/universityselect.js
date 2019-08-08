@@ -68,7 +68,7 @@ export default class UniversitySelect extends React.Component{
                     value={this.state.input}
                 />
 
-                <p className="error-message" hidden={this.state.hideErrorMessage}>
+                <p style={{color:'red', fontSize:'calc(10px + .5vw', margin:'0 10%'}} hidden={this.state.hideErrorMessage}>
                     Sorry, we couldn't find any data on that university. 
                     Please check your spelling and make sure your university is on our list of supported
                     universities.

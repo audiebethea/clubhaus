@@ -20,6 +20,7 @@
         right: 0;
         margin: 0 10vw;
     }
+
 }
 
 @media (min-width : 835px) and (max-width : 1237px){
@@ -29,7 +30,6 @@
         left: 0;
         right: 0;
         margin: 0 10vw;
-        background-color : rgb(235, 235, 235);
     }
 }
 
@@ -37,7 +37,6 @@
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr;
-        background-color : rgb(235, 235, 235);
     }
 }
 

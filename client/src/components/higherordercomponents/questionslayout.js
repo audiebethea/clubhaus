@@ -14,8 +14,9 @@ const styles = {
         margin : '2.5% 0'
     },
     fclLabel : {
-        marginRight : '2%'
-    }
+        marginRight : '5%',
+        fontSize : 'calc(8px + .8vw)'
+    },
 }
 
 function QuestionsLayout(props){
