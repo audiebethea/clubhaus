@@ -2,10 +2,10 @@
 
 //import statements
 import React from 'react';
-import NativeSelect from '@material-ui/core/NativeSelect';
-import Button from '@material-ui/core/Button';
 import HeaderBar from '../higherordercomponents/headerbar.js';
 import CheckboxGrid from '../higherordercomponents/checkboxgrid.js';
+import NavButton from '../higherordercomponents/navbutton.js';
+import QuestionsLayout from '../higherordercomponents/questionslayout.js';
 import './questionnaire.css';
 
 
@@ -126,33 +126,9 @@ export default class Questionnaire extends React.Component{
 
                 <hr className='underline'></hr>
 
-                {QUESTIONS.map((question, index) => {
-                    const answersToQuestion = ANSWERS[index];
-                    return(
-                        <div>
-                            <h2>{question}</h2>
-                            <NativeSelect 
-                                children = {answersToQuestion.map(answer => {
-                                    return <option value={answer}>{answer}</option>
-                                })}
-                                onChange = {event => {this.handleOptionSelect(event, question)}}
-                                value = {this.state.filters[question]}
-                            />
-                        </div>
-                    )
-                })}
+                <QuestionsLayout questions={QUESTIONS} answers={ANSWERS} onSelect={this.handleOptionSelect} stateFilters={this.state.filters}/>
 
-
-                <Button variant='contained' onClick={() => this.onSubmit('UniversitySelect')}>
-                    Back to University Seleciton
-                </Button>
-
-
-                <Button variant='contained' onClick={() => this.onSubmit('Results')}>
-                    View your matched clubs!
-                </Button>
-
-                
+                <NavButton text="See your matched clubs!" onClick={this.onSubmit}/>
 
                 <p>{this.state.errorMessage}</p>
             </div>

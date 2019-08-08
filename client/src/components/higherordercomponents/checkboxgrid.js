@@ -26,8 +26,8 @@ const styles = {
             flexDirection: 'row'
         }
     },
-    controlLabel : {
-        labelPlacement : 'top'
+    fclRoot : {
+        marginBottom : '3%'
     }
 }
 
@@ -42,7 +42,7 @@ function CheckboxGrid(props){
                     return (
                         <div>
                             <FormControl component="fieldset">
-                                <FormLabel component="legend" style={{marginBottom : '1.5em'}}>
+                                <FormLabel component="legend" style={{margin : '7% 0'}}>
                                     {interest}
                                 </FormLabel>
                                 <RadioGroup 
@@ -52,40 +52,40 @@ function CheckboxGrid(props){
                                     row
                                 >
                                     <FormControlLabel
-                                        classes={{label : classes.controlLabel}} 
-                                        label = "Interested"
+                                        label = 'Interested'
                                         labelPlacement = 'top'
+                                        classes = {{root : classes.fclRoot}}
                                         control={
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Interested"}
                                                 classes = {{root : classes.radioRoot, checked : classes.radioChecked}}
                                             />
                                         }
-                                        value="Interested"
+                                        value='Interested'
                                     />
                                     <FormControlLabel 
-                                        classes={{root : classes.controlLabelRoot}} 
-                                        label = "Neutral"
+                                        label = 'Neutral'
                                         labelPlacement = 'top'
+                                        classes = {{root : classes.fclRoot}}
                                         control = {
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Neutral"}
                                                 classes = {{root : classes.radioRoot, checked : classes.radioChecked}}
                                             />
                                         }
-                                        value="Neutral"
+                                        value='Neutral'
                                     />
                                     <FormControlLabel 
-                                        classes={{root : classes.controlLabelRoot}}
-                                        label = "Not Interested"
+                                        label = 'Not Interested'
                                         labelPlacement = 'top'
+                                        classes = {{root : classes.fclRoot}}
                                         control={
                                             <Radio 
                                                 checked = {props.stateCheckboxes[interest] === "Not Interested"}
                                                 classes = {{root : classes.radioRoot, checked : classes.radioChecked}}
                                             />
                                         }
-                                        value="Not Interested"
+                                        value='Not Interested'
                                     />
                                 </RadioGroup>
                             </FormControl>

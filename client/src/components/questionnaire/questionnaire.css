@@ -16,7 +16,6 @@
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr 1fr 1fr;
-        grid-row-gap: 2em;
         left: 0;
         right: 0;
         margin: 0 10vw;
@@ -27,10 +26,10 @@
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr 1fr;
-        grid-row-gap: 2em;
         left: 0;
         right: 0;
         margin: 0 10vw;
+        background-color : rgb(235, 235, 235);
     }
 }
 
@@ -38,6 +37,26 @@
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr;
-        grid-row-gap: 2em;
+        background-color : rgb(235, 235, 235);
     }
+}
+
+.checkbox-grid > div{
+    background-color : rgb(235, 235, 235);
+}
+.checkbox-grid > div:nth-child(odd){
+    background-color :lightgray;
+}
+
+.questions-grid{
+    display : grid;
+    grid-template-columns: 1fr;
+    background-color : rgb(235, 235, 235);
+    left: 0;
+    right: 0;
+    margin: 0 10vw;
+}
+
+.questions-grid > div:nth-child(odd){
+    background-color :lightgray;
 }
