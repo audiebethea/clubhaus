@@ -12,7 +12,7 @@
     border: 1px solid;
 }
 
-@media (min-width : 1238px){
+@media (min-width : 1190px){
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -23,7 +23,7 @@
 
 }
 
-@media (min-width : 835px) and (max-width : 1237px){
+@media (min-width : 764px) and (max-width : 1189px){
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr 1fr;
@@ -33,12 +33,13 @@
     }
 }
 
-@media (max-width : 834px){
+@media (max-width : 763px){
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr;
     }
 }
+
 
 .checkbox-grid > div{
     background-color : rgb(235, 235, 235);
