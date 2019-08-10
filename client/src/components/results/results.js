@@ -70,7 +70,9 @@ export default class Results extends React.Component{
                                 Matched Interests : {club.matchedInterests.toString()}
                             </p> 
                             <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
-                                <Button>Learn More About This Club!</Button>
+                                <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
+                                    Learn More About This Club!
+                                </Button>
                             </a>
                             </CardContent>
                         </Card>

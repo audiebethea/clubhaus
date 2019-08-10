@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 const styles = {
     root : {
-        fontSize : 'calc(4px + 1.3vw)',
+        fontSize : 'calc(10px + 1vw)',
         margin : '2% 0% 5%'
     }
 }

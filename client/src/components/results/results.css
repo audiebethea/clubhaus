@@ -1,6 +1,6 @@
 .card-title {
     float: left;
-    margin-top: 4%; 
+    margin-top:3.5%; 
     margin-left: 25%; 
     font-size: calc(5px + 1.4vw);
 }
@@ -15,7 +15,7 @@
 
 .underline-card {
     color : rgb(102, 101, 101); 
-    margin : 12% 10% 1%; 
+    margin : 13% 10% 1%; 
     border: 1px solid;
 }
 
