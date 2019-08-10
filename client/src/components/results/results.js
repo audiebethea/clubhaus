@@ -1,8 +1,11 @@
 //this is the javascript file to describe the functions of the results page
 //import statements
 import React from 'react';
-import ResultCard from '../higherordercomponents/resultcard.js';
 import HeaderBar from '../higherordercomponents/headerbar.js';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import '../results/results.css';
 
 //some dummy club data
 //clubs should appear in order of match percent, then recent fb activity
@@ -52,8 +55,26 @@ export default class Results extends React.Component{
 
                 {clubs.map(club => {
                     return (
-                            <ResultCard club={club}/>
-                        )
+                        <Card raised = {true} style={{margin : '0 20%'}}>
+                            <h2 className='card-title'>{club.name}</h2>
+                            <img src={club.logoLink} alt="" className='club-logo'></img>
+                            <hr className='underline-card'></hr>
+                            <CardContent>
+                            <p className='description'>
+                                Description : {club.description}
+                            </p>
+                            <p className="match-percent">
+                                Match % : {club.matchPercent}
+                            </p>
+                            <p className="matched-interests">
+                                Matched Interests : {club.matchedInterests.toString()}
+                            </p> 
+                            <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
+                                <Button>Learn More About This Club!</Button>
+                            </a>
+                            </CardContent>
+                        </Card>
+                    )
                 })}
             </div>
         )
