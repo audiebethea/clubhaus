@@ -53,6 +53,8 @@ export default class Results extends React.Component{
             <div>
                 <HeaderBar showBackButton={true} gotoPage={this.props.gotoPage} destination='Questionnaire'/>
 
+                <hr style={{margin : '0 0 6%'}}></hr>
+
                 {clubs.map(club => {
                     return (
                         <Card raised = {true} style={{margin : '0 20%'}}>

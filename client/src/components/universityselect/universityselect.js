@@ -29,6 +29,11 @@ export default class UniversitySelect extends React.Component{
     }
 
 
+    //happens as soon as component is called
+    componentDidMount(){
+        window.scrollTo(0,0);
+    }
+
     //each time the input bar is changed, update the state's current
     //input and current matching universities fields
     handleInputChange(e){
@@ -68,15 +73,15 @@ export default class UniversitySelect extends React.Component{
                     value={this.state.input}
                 />
 
-                <p style={{color:'red', fontSize:'calc(10px + .5vw', margin:'0 10%'}} hidden={this.state.hideErrorMessage}>
+                <p style={{color:'red', fontSize:'calc(10px + .5vw)', margin:'0 10%'}} hidden={this.state.hideErrorMessage}>
                     Sorry, we couldn't find any data on that university. 
                     Please check your spelling and make sure your university is on our list of supported
                     universities.
                 </p>
 
-                <h2 style={{margin : '5vmin', fontSize : 'calc(5px + 1.5vw)'}}>OR</h2>
+                <h2 style={{margin : '5vmin', fontSize : 'calc(12px + 1.2vw)'}}>OR</h2>
 
-                <h4 style={{fontSize : 'calc(5px + 1.3vw)'}}>select a university from the supported universities below:</h4>
+                <h4 style={{fontSize : 'calc(8px + 1.1vw)'}}>select a university from the supported universities below:</h4>
 
                 <p className="clublist">
                     {UNIVERSITIES.map((university, index) => {

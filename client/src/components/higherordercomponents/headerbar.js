@@ -28,7 +28,7 @@ function HeaderBar(props) {
 
     return(
         <>
-        <AppBar classes={{root : classes.appbarRoot}}>
+        <AppBar classes={{root : classes.appbarRoot}} position='sticky'>
             <Toolbar>
                 {props.showBackButton ? 
                     <Button classes={{root : classes.buttonRoot}} variant='contained' onClick={() => props.gotoPage(props.destination)}>
@@ -43,7 +43,6 @@ function HeaderBar(props) {
                 </img>
             </Toolbar>
         </AppBar>
-        <hr style={{marginTop : '12vh'}}></hr>
         </>
     )
 }

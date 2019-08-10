@@ -56,6 +56,7 @@ export default class Questionnaire extends React.Component{
         if(Object.keys(this.props.chosenFilters).length !== 0){
             this.setState({filters : this.props.chosenFilters})
         }
+        window.scrollTo(0,0);
     }
 
     //checkbox change event handler, changes checkbox and updates the state
