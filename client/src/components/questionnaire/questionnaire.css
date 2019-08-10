@@ -20,7 +20,15 @@
         right: 0;
         margin: 0 10vw;
     }
-
+    .native-select {
+        float : right;
+        margin-top : 1.5%;
+        margin-right : 15%;
+    }
+    .question {
+        float : left;
+        margin-left : 15%;
+    }
 }
 
 @media (min-width : 764px) and (max-width : 1189px){
@@ -31,13 +39,24 @@
         right: 0;
         margin: 0 10vw;
     }
+    .native-select {
+        float : right;
+        margin-top : 1.5%;
+        margin-right : 10%;
+    }
+    .question {
+        float : left;
+        margin-left : 10%;
+    }
 }
 
 @media (max-width : 763px){
     .checkbox-grid{
         display : grid;
         grid-template-columns: 1fr;
+        margin: 0 10vw;
     }
+    
 }
 
 
@@ -54,9 +73,13 @@
     background-color : rgb(235, 235, 235);
     left: 0;
     right: 0;
-    margin: 0 10vw;
+    margin: 0 10vw 3vh;
 }
 
 .questions-grid > div:nth-child(odd){
     background-color :lightgray;
+}
+
+.question {
+    font-size : calc(10px + .6vw);
 }

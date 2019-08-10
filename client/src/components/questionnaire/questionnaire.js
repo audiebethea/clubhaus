@@ -2,10 +2,10 @@
 
 //import statements
 import React from 'react';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import HeaderBar from '../higherordercomponents/headerbar.js';
 import CheckboxGrid from '../higherordercomponents/checkboxgrid.js';
 import NavButton from '../higherordercomponents/navbutton.js';
-import QuestionsLayout from '../higherordercomponents/questionslayout.js';
 import './questionnaire.css';
 
 
@@ -128,7 +128,25 @@ export default class Questionnaire extends React.Component{
 
                 <hr className='underline'></hr>
 
-                <QuestionsLayout questions={QUESTIONS} answers={ANSWERS} onSelect={this.handleOptionSelect} stateFilters={this.state.filters}/>
+
+                <div className='questions-grid'>
+                    {QUESTIONS.map((question, index) => {
+                        const answersToQuestion = ANSWERS[index];
+                        return(
+                            <div style={{padding:'2.5%'}}>
+                                <h3 className='question'>{question}</h3>
+                                <NativeSelect 
+                                    className='native-select'
+                                    children = {answersToQuestion.map(answer => {
+                                        return <option value={answer}>{answer}</option>
+                                    })}
+                                    onChange = {event => {this.handleOptionSelect(event, question)}}
+                                    value = {this.state.filters[question]}
+                                />                     
+                            </div>
+                        )
+                    })}
+                </div>
 
                 <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='Results'/>
 
