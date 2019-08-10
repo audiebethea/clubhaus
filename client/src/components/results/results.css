@@ -1,0 +1,33 @@
+.card-title {
+    float: left;
+    margin-top: 4%; 
+    margin-left: 25%; 
+    font-size: calc(5px + 1.4vw);
+}
+
+.club-logo {
+    height: 7%;
+    width: 7%; 
+    float: right; 
+    margin-top: 2%;
+    margin-right: 25%;
+}
+
+.underline-card {
+    color : rgb(102, 101, 101); 
+    margin : 12% 10% 1%; 
+    border: 1px solid;
+}
+
+.description {
+    margin : 0 12%;
+    font-size : calc(10px + .6vw)
+}
+
+.match-percent {
+    font-size : calc(10px + .6vw);
+}
+
+.matched-interests {
+    font-size : calc(10px + .6vw);
+}
