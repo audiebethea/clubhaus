@@ -13,13 +13,12 @@ import ArrowForwardRounded from '@material-ui/icons/ArrowForwardRounded';
 const styles = {
     root : {
         color : 'black',
-        margin : '8vh 0',
-        align : 'center'
+        margin : '8vh 8% 0',
     },
     input : {
         fontFamily : 'Verdana, Geneva, sans-serif',
         fontSize : 'calc(10px + 1vw)',
-        padding : '.9em 5em .9em 7em',
+        padding : '2vh 10vw',
         textAlign : 'center',
         width : '20em'
     }
@@ -40,8 +39,8 @@ function LargeFilledInput(props){
                     children={
                         <IconButton
                             onClick={props.onIconButtonClick}
-                            style={{color : 'black'}}
-                            children={<ArrowForwardRounded/>}
+                            style={{color:'black'}}
+                            children={<ArrowForwardRounded style={{fontSize:'1em'}}/>}
                         />
                     }
                 />

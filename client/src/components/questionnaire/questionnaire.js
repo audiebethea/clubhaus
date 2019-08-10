@@ -40,12 +40,16 @@ export default class Questionnaire extends React.Component{
                 {}
             ),
 
-            hideErrorMessage : true
+            hideErrorMessage : true,
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
         this.handleOptionSelect = this.handleOptionSelect.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
+
+        this.myRef = React.createRef()   // Create a ref object 
+
     }
 
     //initializes the state to previous entries if they exist
@@ -83,6 +87,7 @@ export default class Questionnaire extends React.Component{
         //check to make sure they checked at least one thing as interested
         if(destination === 'Results' && !Object.values(this.state.checkboxes).includes("Interested")){
             this.setState({hideErrorMessage : false});
+            window.scrollTo(0, this.myRef.current.offsetTop) 
         }
         //hides error message and sets base.js's state to track interest & filter responses
         else{
@@ -110,13 +115,15 @@ export default class Questionnaire extends React.Component{
 
                 <hr className='underline'></hr>
 
+                <p style={{color:'red', fontSize:'calc(10px + .5vw)'}} hidden={this.state.hideErrorMessage} ref={this.myRef}>
+                    You must select at least one interest.
+                    </p>
+
                 <CheckboxGrid 
                     interests={INTERESTS} 
                     handleCheckboxChange={this.handleCheckboxChange}   
                     stateCheckboxes={this.state.checkboxes}
                 />
-
-                <p style={{color:'red', fontSize:'calc(10px + .5vw)'}} hidden={this.state.hideErrorMessage}>You must select at least one interest.</p>
 
                 <h1 className='section-title'>QUESTIONS</h1>
                 <p style={{margin : '0% 12%'}}>
