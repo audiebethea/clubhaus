@@ -9,7 +9,7 @@ import '../results/results.css';
 
 //some dummy club data
 //clubs should appear in order of match percent, then recent fb activity
-const club1 = {
+/*const club1 = {
     name : "Sky @ UT Austin",
     logoLink : "https://se-infra-imageserver2.azureedge.net/clink/images/0194ab57-32ab-4123-abde-d411913e60402e9e7de8-d2a8-4c55-95c4-1322f50f9130.jpg?preset=med-sq",
     matchPercent : "78",
@@ -33,18 +33,46 @@ const club3 = {
     description : 'ACS is a progressive, law student organization at The University of Texas School of Law.',
     clubLink : "https://utexas.campuslabs.com/engage/organization/americanconstitutionsociety",
 }
-const clubs = [club1, club2, club3];
+const clubs = [club1, club2, club3];*/
+
+let returnedClubs = [];
 
 
 export default class Results extends React.Component{
     //data will come in as a prop array "clubs"
     constructor(props){
         super(props);
+
+        this.state = {
+            returnedClubs : []
+        }
+
+        this.getClubs = this.getClubs.bind(this);
     }
 
     //happens as soon as component is called
+    //gets data from database based on university, selected interests, selected filters
     componentDidMount(){
         window.scrollTo(0,0);
+
+        this.getClubs();
+    }
+
+    async getClubs(){
+        const university = this.props.chosenUniversity.toLowerCase().replace(/\s/, '+');
+
+        const query = '/clubs/' + university;
+
+        try{
+            const response = await fetch(query);
+            if(response.ok){
+                //this.setState({returnedClubs : response});
+                returnedClubs = response;
+            }
+        }
+        catch (error){
+            console.log(error);
+        }
     }
 
     //displayed
@@ -55,7 +83,9 @@ export default class Results extends React.Component{
 
                 <hr style={{margin : '0 0 6%'}}></hr>
 
-                {clubs.map(club => {
+                <p>{returnedClubs}</p>
+
+                {returnedClubs.map(club => {
                     return (
                         <Card raised = {true} style={{margin : '0 20%'}}>
                             <h2 className='card-title'>{club.name}</h2>
@@ -80,6 +110,8 @@ export default class Results extends React.Component{
                         </Card>
                     )
                 })}
+
+
             </div>
         )
     }
