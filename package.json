@@ -19,7 +19,8 @@
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
     "react-bootstrap": "^1.0.0-beta.9",
-    "react-dropdown": "^1.6.4"
+    "react-dropdown": "^1.6.4",
+    "sqlite3": "^4.0.9"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
