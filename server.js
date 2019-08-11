@@ -1,6 +1,6 @@
 //require statements
 const express = require('express');
-const apiRouter = require('./api.js');
+const apiRouter = require('./api/api.js');
 
 //initialize app
 const app = express();
