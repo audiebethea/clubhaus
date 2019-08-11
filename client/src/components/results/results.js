@@ -48,6 +48,7 @@ export default class Results extends React.Component{
         }
 
         this.getClubs = this.getClubs.bind(this);
+        this.forceUpdate = this.forceUpdate.bind(this);
     }
 
     //happens as soon as component is called
@@ -66,8 +67,14 @@ export default class Results extends React.Component{
         try{
             const response = await fetch(query);
             if(response.ok){
-                //this.setState({returnedClubs : response});
-                returnedClubs = response;
+                const jsonResponse = await response.json();
+
+                returnedClubs = jsonResponse;
+
+                this.forceUpdate();
+            }
+            else{
+                throw new Error('Request Failed!');
             }
         }
         catch (error){
@@ -83,13 +90,13 @@ export default class Results extends React.Component{
 
                 <hr style={{margin : '0 0 6%'}}></hr>
 
-                <p>{returnedClubs}</p>
+                <p>{returnedClubs.toString()}</p>
 
                 {returnedClubs.map(club => {
                     return (
                         <Card raised = {true} style={{margin : '0 20%'}}>
                             <h2 className='card-title'>{club.name}</h2>
-                            <img src={club.logoLink} alt="" className='club-logo'></img>
+                            <img src={club.logo} alt="" className='club-logo'></img>
                             <hr className='underline-card'></hr>
                             <CardContent>
                             <p className='description'>
@@ -99,7 +106,7 @@ export default class Results extends React.Component{
                                 Match % : {club.matchPercent}
                             </p>
                             <p className="matched-interests">
-                                Matched Interests : {club.matchedInterests.toString()}
+                                Matched Interests : {club.matchedInterests}
                             </p> 
                             <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
                                 <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
