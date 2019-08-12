@@ -106,7 +106,7 @@ export default class Results extends React.Component{
                                 Match % : {club.matchPercent}
                             </p>
                             <p className="matched-interests">
-                                Matched Interests : {club.matchedInterests}
+                                Matched Interests : {club.interests}
                             </p> 
                             <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
                                 <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
