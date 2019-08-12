@@ -11,7 +11,7 @@ const db = new sqlite3.Database('./api/database.sqlite');
 clubsRouter.get('/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
 
-    console.log(university);
+    console.log('Got Here! Just slow as fuck');
 
     db.all('SELECT * FROM Clubs WHERE Clubs.university = $university', {$university : university},
         (error, result) => {
@@ -19,11 +19,32 @@ clubsRouter.get('/:university', (req, res, next) => {
                 next(error);
             }
             else{
+                const filteredResults = filterResults(result, req.body.filters);
+
+                console.log(result);
+
                 res.json(result);
             }
         }
     )
 });
+
+/*receivedFilters is an array of filter strings
+result is an array of club objects
+returns an array of clubs that don't have conflicting filters*/
+function filterResults(clubs, receivedFilters){
+
+    console.log(receivedFilters);
+
+    return clubs.filter(club => {
+        //create an array of filters
+        const clubFilters = club.filters.split(', ');
+
+        return receivedFilters.every(receivedFilter, index => {
+            return receivedFilter === clubFilters[index] || clubFilters[index] === 'Prefer Not To Answer';
+        })
+    });
+}
 
 
 module.exports = clubsRouter;

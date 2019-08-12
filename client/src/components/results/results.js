@@ -43,10 +43,6 @@ export default class Results extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {
-            returnedClubs : []
-        }
-
         this.getClubs = this.getClubs.bind(this);
         this.forceUpdate = this.forceUpdate.bind(this);
     }
@@ -60,12 +56,24 @@ export default class Results extends React.Component{
     }
 
     async getClubs(){
-        const university = this.props.chosenUniversity.toLowerCase().replace(/\s/, '+');
+        const university = this.props.chosenUniversity.replace(/\s/, '+');
+        const stringifyInterests = JSON.stringify(this.props.chosenInterests);
+        const stringifyFilters = JSON.stringify(this.props.chosenFilters);
 
         const query = '/clubs/' + university;
 
         try{
-            const response = await fetch(query);
+            const response = await fetch(query, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: {
+                    interests : stringifyInterests,
+                    filters : stringifyFilters
+                }
+            });
             if(response.ok){
                 const jsonResponse = await response.json();
 

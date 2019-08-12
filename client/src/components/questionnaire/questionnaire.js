@@ -13,9 +13,9 @@ import './questionnaire.css';
 //interests array
 const INTERESTS = ["Acting", "Bowling", "Chess", "Dancing", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
 //questions array
-const QUESTIONS = ["What would you like to drink today?", "What would you like to eat today?"];
+const QUESTIONS = ["What is your political ideology?", "What would you like to eat today?"];
 //answers arrays
-const q1Answers = ["Prefer Not To Answer", "Dr. Pepper", "Lemonade", "Topo Chico", "Sweet Tea"];
+const q1Answers = ["Prefer Not To Answer", "Conservative", "Liberal"];
 const q2Answers = ["Prefer Not To Answer", "Spaghetti", "Burger", "Orange Chicken", "Tacos", "Fruit Salad"];
 const ANSWERS = [q1Answers, q2Answers];
 
