@@ -2,7 +2,11 @@
 import React from 'react';
 import UniversitySelect from './universityselect/universityselect.js';
 import Questionnaire from './questionnaire/questionnaire.js';
-import Results from './results/results.js';
+import InterestResults from './results/interestresults.js';
+import PoliticalResults from './results/politicalresults.js';
+import ReligiousResults from './results/religiousresults.js';
+import CulturalResults from './results/culturalresults.js';
+
 
 
 
@@ -74,13 +78,42 @@ export default class Base extends React.Component{
                         />
                     </div>
                 );
-            case "Results":
+            case "InterestResults":
                 return(
                     <div>
-                        <Results 
+                        <InterestResults 
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
+                        />
+                    </div>
+                );
+            case "PoliticalResults":
+                return(
+                    <div>
+                        <PoliticalResults 
+                            gotoPage={this.gotoPage}
+                            chosenUniversity={this.state.chosenUniversity}
+                            chosenFilters={this.state.chosenFilters}
+                        />
+                    </div>
+                );
+            case "ReligiousResults":
+                return(
+                    <div>
+                        <ReligiousResults 
+                            gotoPage={this.gotoPage}
+                            chosenUniversity={this.state.chosenUniversity}
+                            chosenFilters={this.state.chosenFilters}
+                        />
+                    </div>
+                );
+            case "CulturalResults":
+                return(
+                    <div>
+                        <CulturalResults 
+                            gotoPage={this.gotoPage}
+                            chosenUniversity={this.state.chosenUniversity}
                             chosenFilters={this.state.chosenFilters}
                         />
                     </div>
