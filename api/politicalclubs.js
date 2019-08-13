@@ -3,17 +3,18 @@ const express = require('express');
 const sqlite3 = require('sqlite3');
 const errorhandler = require('errorhandler');
 
-const clubsRouter = express.Router();
-clubsRouter.use(errorhandler());
+const filterRouter = express.Router();
+filterRouter.use(errorhandler());
 
 const db = new sqlite3.Database('./api/database.sqlite');
 
-clubsRouter.get('/:university', (req, res, next) => {
+filterRouter.get(':filter/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
+    const table = req.params.filter + "Clubs";
 
     console.log('Got Here! Just slow as fuck');
 
-    db.all('SELECT * FROM Clubs WHERE Clubs.university = $university', {$university : university},
+    db.all('SELECT * FROM $filtertable WHERE $filtertable.university = $university', {$university : university, $filtertable : table},
         (error, result) => {
             if(error){
                 next(error);
@@ -47,4 +48,4 @@ function filterResults(clubs, receivedFilters){
 }
 
 
-module.exports = clubsRouter;
+module.exports = filterRouter;

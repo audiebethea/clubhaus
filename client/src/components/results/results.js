@@ -64,7 +64,7 @@ export default class Results extends React.Component{
 
         try{
             const response = await fetch(query, {
-                method: 'GET',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
