@@ -34,18 +34,14 @@ export default class Questionnaire extends React.Component{
                 {}
             ),
             
-            politicalAnswers : ['Not Interested'],
-            religiousAnswers : ['Not Interested'],
-            culturalAnswers : ['Not Interested'],
+            politicalAnswers : ["Not Interested"],
+            religiousAnswers : ["Not Interested"],
+            culturalAnswers : ["Not Interested"],
             hideErrorMessage : true,
-
-            eventTargetValue : []
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-        this.handlePoliticalUpdate = this.handlePoliticalUpdate.bind(this);
-        this.handleReligiousUpdate = this.handleReligiousUpdate.bind(this);
-        this.handleCulturalUpdate = this.handleCulturalUpdate.bind(this);
+        this.handleSelectionUpdate = this.handleSelectionUpdate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
 
@@ -79,52 +75,38 @@ export default class Questionnaire extends React.Component{
         }))        
     }
 
-    handlePoliticalUpdate(event){
+    handleSelectionUpdate(event, relatedState, relatedStateName){
         const selectedValue = event.target.value;
 
-        this.setState({eventTargetValue : selectedValue});
+        let newState = relatedState;
 
-        if(selectedValue.length > 1){
-            const index = this.state.politicalAnswers.findIndex(answerValue => answerValue === selectedValue);
-            if(index === -1){
-                const newState = this.state.politicalAnswers;
-                newState.push(selectedValue);
-                this.setState({politicalAnswers : newState});
-            }
-            else{
-                const newState = this.state.politicalAnswers;
-                newState.splice(index, 1);
-                this.setState({politicalAnswers : newState});
-            }
+        //if the client selects not interested, clear the state and input not interested
+        if(selectedValue === "Not Interested"){
+            newState.length = 0;
+            newState.push("Not Interested");
         }
+        //if the client picks something else
         else{
-            const newState = [selectedValue];
-            this.setState({politicalAnswers : newState});
+            //if the array contains Not Interested, must remove it
+            const niIndex = relatedState.findIndex(answerValue => answerValue === "Not Interested");
+            if(niIndex !== -1){
+                newState.splice(niIndex, 1);
+            }
+
+            //search for selected value and add if not present, remove if present
+            const selectedIndex = relatedState.findIndex(answerValue => answerValue === selectedValue);
+            selectedIndex === -1 ? newState.push(selectedValue) : newState.splice(selectedIndex, 1);
+
+            /*if the array is empty, add not interested
+            since this can only happen if the user deselects
+            all other options*/
+            if(newState.length < 1){
+                newState.length = 0;
+                newState.push("Not Interested");            
+            }
         }
 
-        
-    }
-
-    handleReligiousUpdate(event){
-        const { options } = event.target;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-          if (options[i].selected) {
-            value.push(options[i].value);
-          }
-        }
-        this.setState({religiousAnswers : value});
-    }
-
-    handleCulturalUpdate(event){
-        const { options } = event.target.value;
-        const value = [];
-        for (let i = 0, l = options.length; i < l; i += 1) {
-          if (options[i].selected) {
-            value.push(options[i].value);
-          }
-        }
-        this.setState({culturalAnswers : value}); 
+        this.setState({[relatedStateName] : newState});
     }
 
     //handles submit
@@ -188,41 +170,42 @@ export default class Questionnaire extends React.Component{
                     {QUESTIONS.map((question, index) => {
                         const answersToQuestion = ANSWERS[index];
                         let relatedState;
-                        let updateFunction;
+                        let relatedStateName;
                         if(index === 0){
                             relatedState = this.state.politicalAnswers;
-                            updateFunction = this.handlePoliticalUpdate;
+                            relatedStateName = politicalAnswers;
                         }
                         else if(index === 1){
                             relatedState = this.state.religiousAnswers;
-                            updateFunction = this.handleReligiousUpdate;
+                            relatedStateName = religiousAnswers;
                         }
                         else{
                             relatedState = this.state.culturalAnswers;
-                            updateFunction = this.handleCulturalUpdate;
+                            relatedStateName = culturalAnswers;
                         }
                         return(
                             <div style={{padding:'2.5%'}}>
                                 <h3 className='question'>{question}</h3>
                                 <Select 
                                     multiple
+                                    autoWidth
                                     className='native-select'
                                     children = {answersToQuestion.map(answer => {
-                                        return <option value={answer}>{answer}</option>
+                                        if(relatedState.includes(answer)){
+                                            return <option value={answer}>{answer} (selected)</option>
+                                        }
+                                        else{
+                                            return <option value={answer}>{answer}</option>
+                                        }
                                     })}
-                                    onChange = {event => updateFunction(event)}
-                                    //value = {relatedState}
-                                /> 
+                                    onChange = {event => this.handleSelectionUpdate(event, relatedState, relatedStateName)}
+                                />   
                             </div>
                         )
                     })}
                 </div>
 
                 <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
-
-                <p>{this.state.politicalAnswers.toString()} HELLO</p>
-
-                <p>{this.state.eventTargetValue.toString()}HELLO2</p>
 
             </div>
         )
