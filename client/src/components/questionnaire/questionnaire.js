@@ -2,7 +2,7 @@
 
 //import statements
 import React from 'react';
-import NativeSelect from '@material-ui/core/NativeSelect';
+import Select from '@material-ui/core/NativeSelect';
 import HeaderBar from '../higherordercomponents/headerbar.js';
 import CheckboxGrid from '../higherordercomponents/checkboxgrid.js';
 import NavButton from '../higherordercomponents/navbutton.js';
@@ -13,11 +13,12 @@ import './questionnaire.css';
 //interests array
 const INTERESTS = ["Acting", "Bowling", "Chess", "Dancing", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
 //questions array
-const QUESTIONS = ["What is your political ideology?", "What would you like to eat today?"];
+const QUESTIONS = ["What political groups would you like to see?", "What religious groups would you like to see?", "What cultural groups would you like to see?"];
 //answers arrays
-const q1Answers = ["Prefer Not To Answer", "Conservative", "Liberal"];
-const q2Answers = ["Prefer Not To Answer", "Spaghetti", "Burger", "Orange Chicken", "Tacos", "Fruit Salad"];
-const ANSWERS = [q1Answers, q2Answers];
+const politicalAnswers = ["Not Interested", "Conservative", "Liberal",];
+const religiousAnswers = ["Not Interested", "Christian", "Muslim", "Hindu",];
+const culturalAnswers = ["Not Interested", "Asian", "European", "Latin"];
+const ANSWERS = [politicalAnswers, religiousAnswers, culturalAnswers];
 
 
 export default class Questionnaire extends React.Component{
@@ -33,22 +34,22 @@ export default class Questionnaire extends React.Component{
                 {}
             ),
             
-            filters : QUESTIONS.reduce(
-                (questions, question) => ({
-                    ...questions, [question] : "Prefer Not To Answer"
-                }),
-                {}
-            ),
-
+            politicalAnswers : ['Not Interested'],
+            religiousAnswers : ['Not Interested'],
+            culturalAnswers : ['Not Interested'],
             hideErrorMessage : true,
+
+            eventTargetValue : []
         }
 
         this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
-        this.handleOptionSelect = this.handleOptionSelect.bind(this);
+        this.handlePoliticalUpdate = this.handlePoliticalUpdate.bind(this);
+        this.handleReligiousUpdate = this.handleReligiousUpdate.bind(this);
+        this.handleCulturalUpdate = this.handleCulturalUpdate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
 
-        this.myRef = React.createRef()   // Create a ref object 
+        this.myRef = React.createRef();   // Create a ref object for scrolling
 
     }
 
@@ -57,8 +58,14 @@ export default class Questionnaire extends React.Component{
         if(Object.keys(this.props.chosenInterests).length !== 0){
             this.setState({checkboxes : this.props.chosenInterests})
         }
-        if(Object.keys(this.props.chosenFilters).length !== 0){
-            this.setState({filters : this.props.chosenFilters})
+        if(Object.keys(this.props.politicalAnswers).length !== 0){
+            this.setState({politicalAnswers : this.props.politicalAnswers})
+        }
+        if(Object.keys(this.props.religiousAnswers).length !== 0){
+            this.setState({religiousAnswers : this.props.religiousAnswers})
+        }
+        if(Object.keys(this.props.culturalAnswers).length !== 0){
+            this.setState({culturalAnswers : this.props.culturalAnswers})
         }
         window.scrollTo(0,0);
     }
@@ -72,14 +79,52 @@ export default class Questionnaire extends React.Component{
         }))        
     }
 
-    //option select handler, updates the filters with the selected value
-    handleOptionSelect(e, question){
-        const selectedAnswer = e.target.value;
-        this.setState(prevState => ({
-            filters : {
-                ...prevState.filters, [question] : selectedAnswer
+    handlePoliticalUpdate(event){
+        const selectedValue = event.target.value;
+
+        this.setState({eventTargetValue : selectedValue});
+
+        if(selectedValue.length > 1){
+            const index = this.state.politicalAnswers.findIndex(answerValue => answerValue === selectedValue);
+            if(index === -1){
+                const newState = this.state.politicalAnswers;
+                newState.push(selectedValue);
+                this.setState({politicalAnswers : newState});
             }
-        }));
+            else{
+                const newState = this.state.politicalAnswers;
+                newState.splice(index, 1);
+                this.setState({politicalAnswers : newState});
+            }
+        }
+        else{
+            const newState = [selectedValue];
+            this.setState({politicalAnswers : newState});
+        }
+
+        
+    }
+
+    handleReligiousUpdate(event){
+        const { options } = event.target;
+        const value = [];
+        for (let i = 0, l = options.length; i < l; i += 1) {
+          if (options[i].selected) {
+            value.push(options[i].value);
+          }
+        }
+        this.setState({religiousAnswers : value});
+    }
+
+    handleCulturalUpdate(event){
+        const { options } = event.target.value;
+        const value = [];
+        for (let i = 0, l = options.length; i < l; i += 1) {
+          if (options[i].selected) {
+            value.push(options[i].value);
+          }
+        }
+        this.setState({culturalAnswers : value}); 
     }
 
     //handles submit
@@ -93,7 +138,9 @@ export default class Questionnaire extends React.Component{
         else{
             this.setState({hideErrorMessage : true});
             this.props.updateInterests(this.state.checkboxes);
-            this.props.updateFilters(this.state.filters);
+            this.props.updatePolitical(this.state.politicalAnswers);
+            this.props.updateReligious(this.state.updateReligious);
+            this.props.updateCultural(this.state.updateCultural);
             this.props.gotoPage(destination);
         }
     }
@@ -130,7 +177,7 @@ export default class Questionnaire extends React.Component{
                     Your answers for these questions will be used to filter out
                     clubs that you will likely not be interested in. If some of the
                     questions feel too personal or you would not like to have your 
-                    clubs filtered this way, please use the "Prefer not to answer"
+                    clubs filtered this way, please use the "Not Interested"
                     option.
                 </p>
 
@@ -140,23 +187,42 @@ export default class Questionnaire extends React.Component{
                 <div className='questions-grid'>
                     {QUESTIONS.map((question, index) => {
                         const answersToQuestion = ANSWERS[index];
+                        let relatedState;
+                        let updateFunction;
+                        if(index === 0){
+                            relatedState = this.state.politicalAnswers;
+                            updateFunction = this.handlePoliticalUpdate;
+                        }
+                        else if(index === 1){
+                            relatedState = this.state.religiousAnswers;
+                            updateFunction = this.handleReligiousUpdate;
+                        }
+                        else{
+                            relatedState = this.state.culturalAnswers;
+                            updateFunction = this.handleCulturalUpdate;
+                        }
                         return(
                             <div style={{padding:'2.5%'}}>
                                 <h3 className='question'>{question}</h3>
-                                <NativeSelect 
+                                <Select 
+                                    multiple
                                     className='native-select'
                                     children = {answersToQuestion.map(answer => {
                                         return <option value={answer}>{answer}</option>
                                     })}
-                                    onChange = {event => {this.handleOptionSelect(event, question)}}
-                                    value = {this.state.filters[question]}
-                                />                     
+                                    onChange = {event => updateFunction(event)}
+                                    //value = {relatedState}
+                                /> 
                             </div>
                         )
                     })}
                 </div>
 
-                <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='Results'/>
+                <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
+
+                <p>{this.state.politicalAnswers.toString()} HELLO</p>
+
+                <p>{this.state.eventTargetValue.toString()}HELLO2</p>
 
             </div>
         )

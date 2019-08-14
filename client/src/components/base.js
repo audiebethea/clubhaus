@@ -21,13 +21,17 @@ export default class Base extends React.Component{
             curPage : "UniversitySelect",
             chosenUniversity : "",
             chosenInterests : {},
-            chosenFilters : {}
+            politicalAnswers : [],
+            religiousAnswers : [],
+            culturalAnswers : []
         }
 
         this.gotoPage = this.gotoPage.bind(this);
         this.updateUniversity = this.updateUniversity.bind(this);
         this.updateInterests = this.updateInterests.bind(this);
-        this.updateFilters = this.updateFilters.bind(this);
+        this.updatePolitical = this.updatePolitical.bind(this);
+        this.updateReligious = this.updateReligious.bind(this);
+        this.updateCultural = this.updateCultural.bind(this);
     }
 
     //this function is used to navigate from one component to another
@@ -45,9 +49,18 @@ export default class Base extends React.Component{
         this.setState({chosenInterests : interests});
     }
 
-    //accepts filters from questionniare, passed to results to make call
-    updateFilters(filters){
-        this.setState({chosenFilters : filters});
+    //accepts political answers from questionniare, passed to results to make call
+    updatePolitical(filters){
+        this.setState({politicalAnswers : filters});
+    }
+
+    //accepts religious answers from questionniare, passed to results to make call
+    updateReligious(filters){
+        this.setState({religiousAnswers : filters});
+    }
+    //accepts cultural answers from questionniare, passed to results to make call
+    updateCultural(filters){
+        this.setState({culturalAnswers : filters});
     }
 
     //renders a specific component based on state
@@ -71,10 +84,13 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage} 
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
-                            chosenFilters={this.state.chosenFilters}
+                            politicalAnswers={this.state.politicalAnswers}
+                            religiousAnswers={this.state.religiousAnswers}
+                            culturalAnswers={this.state.culturalAnswers}
                             updateInterests={this.updateInterests}
-                            updateDisinterests={this.updateDisinterests}
-                            updateFilters={this.updateFilters}
+                            updatePolitical={this.updatePolitical}
+                            updateReligious={this.updateReligious}
+                            updateCultural={this.updateCultural}
                         />
                     </div>
                 );
@@ -94,7 +110,7 @@ export default class Base extends React.Component{
                         <PoliticalResults 
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
-                            chosenFilters={this.state.chosenFilters}
+                            politicalAnswers={this.state.politicalAnswers}
                         />
                     </div>
                 );
@@ -104,7 +120,7 @@ export default class Base extends React.Component{
                         <ReligiousResults 
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
-                            chosenFilters={this.state.chosenFilters}
+                            religiousAnswers={this.state.religiousAnswers}
                         />
                     </div>
                 );
@@ -114,7 +130,7 @@ export default class Base extends React.Component{
                         <CulturalResults 
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
-                            chosenFilters={this.state.chosenFilters}
+                            culturalAnswers={this.state.culturalAnswers}
                         />
                     </div>
                 );
