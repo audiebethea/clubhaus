@@ -54,13 +54,13 @@ export default class Questionnaire extends React.Component{
         if(Object.keys(this.props.chosenInterests).length !== 0){
             this.setState({checkboxes : this.props.chosenInterests})
         }
-        if(Object.keys(this.props.politicalAnswers).length !== 0){
+        if(this.props.politicalAnswers.length !== 0){
             this.setState({politicalAnswers : this.props.politicalAnswers})
         }
-        if(Object.keys(this.props.religiousAnswers).length !== 0){
+        if(this.props.religiousAnswers.length !== 0){
             this.setState({religiousAnswers : this.props.religiousAnswers})
         }
-        if(Object.keys(this.props.culturalAnswers).length !== 0){
+        if(this.props.culturalAnswers.length !== 0){
             this.setState({culturalAnswers : this.props.culturalAnswers})
         }
         window.scrollTo(0,0);
@@ -121,8 +121,8 @@ export default class Questionnaire extends React.Component{
             this.setState({hideErrorMessage : true});
             this.props.updateInterests(this.state.checkboxes);
             this.props.updatePolitical(this.state.politicalAnswers);
-            this.props.updateReligious(this.state.updateReligious);
-            this.props.updateCultural(this.state.updateCultural);
+            this.props.updateReligious(this.state.religiousAnswers);
+            this.props.updateCultural(this.state.culturalAnswers);
             this.props.gotoPage(destination);
         }
     }
@@ -206,6 +206,11 @@ export default class Questionnaire extends React.Component{
                 </div>
 
                 <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
+
+                <p>{this.state.politicalAnswers.toString()}</p>
+                <p>{this.state.religiousAnswers.toString()}</p>
+                <p>{this.state.culturalAnswers.toString()}</p>
+
 
             </div>
         )

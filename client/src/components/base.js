@@ -51,16 +51,28 @@ export default class Base extends React.Component{
 
     //accepts political answers from questionniare, passed to results to make call
     updatePolitical(filters){
-        this.setState({politicalAnswers : filters});
+        //make deep copy
+        let newPolAnswers = [];
+        filters.forEach(filter => newPolAnswers.push(filter));
+
+        this.setState({politicalAnswers : newPolAnswers});
     }
 
     //accepts religious answers from questionniare, passed to results to make call
     updateReligious(filters){
-        this.setState({religiousAnswers : filters});
+        //make deep copy
+        let newRelAnswers = [];
+        filters.forEach(filter => newRelAnswers.push(filter));
+
+        this.setState({religiousAnswers : newRelAnswers});
     }
     //accepts cultural answers from questionniare, passed to results to make call
     updateCultural(filters){
-        this.setState({culturalAnswers : filters});
+        //make deep copy
+        let newCulAnswers = [];
+        filters.forEach(filter => newCulAnswers.push(filter));
+
+        this.setState({culturalAnswers : newCulAnswers});
     }
 
     //renders a specific component based on state
