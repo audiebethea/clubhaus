@@ -36,10 +36,17 @@ interestRouter.post('/:university', (req, res, next) => {
 
                 filteredResults = computeMatchPercent(interested, filteredResults);
 
-                //remove clubs with less than a 50% match
-                filteredResults = filteredResults.filter(club => club.matchPercent > 50);
+                //sort first by match percent, then by absolute number of matches
+                filteredResults.sort((clubA, clubB) => clubA.matchPercent === clubB.matchPercent ? clubB.matchCount - clubA.matchCount : clubB.matchPercent - clubA.matchPercent);
 
-                filteredResults.sort((clubA, clubB) => clubB.matchPercent - clubA.matchPercent);
+                //limit filtered results to just the highest
+                if(filteredResults.length > 5){
+                    filteredResults.length = 5;
+                }
+
+                filteredResults = filteredResults.filter(club => club.matchPercent > 0);
+
+                console.log(filteredResults);
 
                 res.json(filteredResults);
             }
@@ -64,14 +71,18 @@ function computeMatchPercent(selectedInterests, clubs){
         const clubInterests = club.interests.split(', ');
         const totalInterestCount = clubInterests.length;
         let matchCount = 0;
+        let matchedInterests = [];
 
         clubInterests.forEach(clubInterest => {
             if(selectedInterests.includes(clubInterest)){
                 matchCount++;
+                matchedInterests.push(clubInterest);
             }
         })
 
+        club.matchCount = matchCount;
         club.matchPercent = (matchCount * 1.0 / totalInterestCount) * 100;
+        club.matchedInterests = matchedInterests;
     })
 
     return clubs;

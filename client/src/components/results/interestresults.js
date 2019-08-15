@@ -65,31 +65,39 @@ export default class InterestResults extends React.Component{
 
                 <hr style={{margin : '0 0 6%'}}></hr>
 
-                {returnedClubs.map(club => {
-                    return (
-                        <Card raised = {true} style={{margin : '0 20%'}}>
-                            <h2 className='card-title'>{club.name}</h2>
-                            <img src={club.logo} alt="" className='club-logo'></img>
-                            <hr className='underline-card'></hr>
-                            <CardContent>
-                            <p className='description'>
-                                Description : {club.description}
-                            </p>
-                            <p className="match-percent">
-                                Match % : {club.matchPercent}
-                            </p>
-                            <p className="matched-interests">
-                                Matched Interests : {club.interests}
-                            </p> 
-                            <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
-                                <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
-                                    Learn More About This Club!
-                                </Button>
-                            </a>
-                            </CardContent>
-                        </Card>
-                    )
-                })}
+                <p>{returnedClubs.toString()}</p>
+
+                
+
+                {returnedClubs.length !== 0 ? (
+                        returnedClubs.map(club => {
+                            const matchedInterests = club.matchedInterests.toString().replace(/,/, ', ');
+                            return (
+                                <Card raised = {true} style={{margin : '0 20%'}}>
+                                    <h2 className='card-title'>{club.name}</h2>
+                                    <img src={club.logo} alt="" className='club-logo'></img>
+                                    <hr className='underline-card'></hr>
+                                    <CardContent>
+                                    <p className='description'>
+                                        Description : {club.description}
+                                    </p>
+                                    <p className="match-percent">
+                                        Match % : {club.matchPercent}
+                                    </p>
+                                    <p className="matched-interests">
+                                        Matched Interests : {matchedInterests}
+                                    </p> 
+                                    <a href={club.clublink} target='_blank' rel="noopener noreferrer" style={{textDecoration:'none'}}>
+                                        <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}} variant='contained'>
+                                            Learn More About This Club!
+                                        </Button>
+                                    </a>
+                                    </CardContent>
+                                </Card>
+                            )
+                        }
+                    )) : <h3>Sorry, we couldn't find any compatible clubs.</h3>
+                }
             </div>
         )
     }

@@ -28,7 +28,6 @@ export default class PoliticalResults extends React.Component{
 
     async getClubs(){
         const university = this.props.chosenUniversity.replace(/\s/, '+');
-        const stringifyFilters = JSON.stringify(this.props.filters);
 
         const query = '/filter/political' + university;
 
@@ -39,7 +38,7 @@ export default class PoliticalResults extends React.Component{
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: stringifyFilters,
+                body: JSON.stringify(this.props.filters),
             });
             if(response.ok){
                 const jsonResponse = await response.json();
