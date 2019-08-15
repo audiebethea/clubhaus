@@ -37,13 +37,11 @@ interestRouter.post('/:university', (req, res, next) => {
                 filteredResults = computeMatchPercent(interested, filteredResults);
 
                 //remove clubs with less than a 50% match
-                filteredResults = clubs.filter(club => club.matchPercent > 50);
+                filteredResults = filteredResults.filter(club => club.matchPercent > 50);
 
-                filteredResults.sort((clubA, clubB) => clubA.matchPercent - clubB.matchPercent);
+                filteredResults.sort((clubA, clubB) => clubB.matchPercent - clubA.matchPercent);
 
-                console.log(filteredResults);
-
-                res.json(result);
+                res.json(filteredResults);
             }
         }
     )
