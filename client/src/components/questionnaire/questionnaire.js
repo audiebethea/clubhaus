@@ -112,7 +112,7 @@ export default class Questionnaire extends React.Component{
     //handles submit
     onSubmit(destination){
         //check to make sure they checked at least one thing as interested
-        if(destination === 'Results' && !Object.values(this.state.checkboxes).includes("Interested")){
+        if(destination === 'InterestResults' && !Object.values(this.state.checkboxes).includes("Interested")){
             this.setState({hideErrorMessage : false});
             window.scrollTo(0, this.myRef.current.offsetTop) 
         }

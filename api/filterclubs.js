@@ -8,11 +8,11 @@ filterRouter.use(errorhandler());
 
 const db = new sqlite3.Database('./api/database.sqlite');
 
-filterRouter.get(':filter/:university', (req, res, next) => {
+filterRouter.post(':filter/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
     const table = req.params.filter + "Clubs";
 
-    console.log('Got Here! Just slow as fuck');
+    console.log('Connected');
 
     db.all('SELECT * FROM $filtertable WHERE $filtertable.university = $university', {$university : university, $filtertable : table},
         (error, result) => {

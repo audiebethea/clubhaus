@@ -26,9 +26,10 @@ export default class InterestResults extends React.Component{
         this.getClubs();
     }
 
+    //this.props.chosenInterests is an object
     async getClubs(){
+        //url-friendly string
         const university = this.props.chosenUniversity.replace(/\s/, '+');
-        const stringifyInterests = JSON.stringify(this.props.chosenInterests);
 
         const query = '/interest/' + university;
 
@@ -39,11 +40,10 @@ export default class InterestResults extends React.Component{
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: stringifyInterests,
+                body: JSON.stringify(this.props.chosenInterests)
             });
             if(response.ok){
                 const jsonResponse = await response.json();
-
                 returnedClubs = jsonResponse;
 
                 this.forceUpdate();
@@ -64,8 +64,6 @@ export default class InterestResults extends React.Component{
                 <HeaderBar showBackButton={true} gotoPage={this.props.gotoPage} destination='Questionnaire'/>
 
                 <hr style={{margin : '0 0 6%'}}></hr>
-
-                <p>{returnedClubs.toString()}</p>
 
                 {returnedClubs.map(club => {
                     return (
@@ -92,8 +90,6 @@ export default class InterestResults extends React.Component{
                         </Card>
                     )
                 })}
-
-
             </div>
         )
     }
