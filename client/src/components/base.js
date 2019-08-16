@@ -113,6 +113,7 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             chosenInterests={this.state.chosenInterests}
+                            curPage={this.state.curPage}
                         />
                     </div>
                 );
@@ -123,6 +124,7 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             politicalAnswers={this.state.politicalAnswers}
+                            curPage={this.state.curPage}
                         />
                     </div>
                 );
@@ -133,6 +135,7 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             religiousAnswers={this.state.religiousAnswers}
+                            curPage={this.state.curPage}
                         />
                     </div>
                 );
@@ -143,6 +146,7 @@ export default class Base extends React.Component{
                             gotoPage={this.gotoPage}
                             chosenUniversity={this.state.chosenUniversity}
                             culturalAnswers={this.state.culturalAnswers}
+                            curPage={this.state.curPage}
                         />
                     </div>
                 );

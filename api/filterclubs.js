@@ -8,41 +8,39 @@ filterRouter.use(errorhandler());
 
 const db = new sqlite3.Database('./api/database.sqlite');
 
-filterRouter.post(':filter/:university', (req, res, next) => {
+filterRouter.post('/:filter/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
-    const table = req.params.filter + "Clubs";
+    const filterType = req.params.filter.substring(0, 3) + 'filters';
 
-    console.log('Connected');
+    console.log('Connected to FilterClubs.');
 
-    db.all('SELECT * FROM $filtertable WHERE $filtertable.university = $university', {$university : university, $filtertable : table},
+    db.all("SELECT * FROM FilterClubs WHERE FilterClubs.university = $university", 
+        {$university : university},
         (error, result) => {
             if(error){
                 next(error);
             }
             else{
-                const filteredResults = filterResults(result, req.body.filters);
+                let filteredResults = result.filter(club => club[filterType] !== null);
 
-                console.log(result);
+                console.log(filterType);
 
-                res.json(result);
+                filteredResults = findSpecClubs(filteredResults, filterType, req.body);
+
+                res.json(filteredResults);
             }
         }
     )
 });
 
-/*receivedFilters is an array of filter strings
-result is an array of club objects
-returns an array of clubs that don't have conflicting filters*/
-function filterResults(clubs, receivedFilters){
-
-    console.log(receivedFilters);
-
+//return clubs that have no contradictions with this filter field
+function findSpecClubs(clubs, filterType, receivedFilters){
     return clubs.filter(club => {
         //create an array of filters
-        const clubFilters = club.filters.split(', ');
+        const clubFilters = club[filterType].split(', ');
 
-        return receivedFilters.every(receivedFilter, index => {
-            return receivedFilter === clubFilters[index] || clubFilters[index] === 'Prefer Not To Answer';
+        return clubFilters.every(clubFilter => {
+            return receivedFilters.includes(clubFilter);
         })
     });
 }

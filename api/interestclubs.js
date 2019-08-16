@@ -45,9 +45,7 @@ interestRouter.post('/:university', (req, res, next) => {
                 }
 
                 filteredResults = filteredResults.filter(club => club.matchPercent > 0);
-
-                console.log(filteredResults);
-
+                
                 res.json(filteredResults);
             }
         }

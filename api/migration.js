@@ -9,6 +9,7 @@ const db = new sqlite3.Database('./database.sqlite');
 db.serialize(function(){
 
     db.run('DROP TABLE IF EXISTS InterestClubs'),
+    db.run('DROP TABLE IF EXISTS FilterClubs'),
 
     db.run("CREATE TABLE IF NOT EXISTS InterestClubs "
         + "(id INTEGER NOT NULL, " 
@@ -20,34 +21,16 @@ db.serialize(function(){
         + "interests STRING NOT NULL) "    
     ),
 
-    db.run("CREATE TABLE IF NOT EXISTS PoliticalClubs "
+    db.run("CREATE TABLE IF NOT EXISTS FilterClubs "
         + "(id INTEGER NOT NULL, " 
         + "name STRING NOT NULL, "
         + "clublink STRING NOT NULL, "
         + "university STRING NOT NULL, "
         + "description STRING, "
         + "logo STRING, "
-        + "filters STRING NOT NULL)"    
-    ),
-
-    db.run("CREATE TABLE IF NOT EXISTS ReligiousClubs "
-        + "(id INTEGER NOT NULL, " 
-        + "name STRING NOT NULL, "
-        + "clublink STRING NOT NULL, "
-        + "university STRING NOT NULL, "
-        + "description STRING, "
-        + "logo STRING, "
-        + "filters STRING NOT NULL)"    
-    ),
-
-    db.run("CREATE TABLE IF NOT EXISTS CulturalClubs "
-        + "(id INTEGER NOT NULL, " 
-        + "name STRING NOT NULL, "
-        + "clublink STRING NOT NULL, "
-        + "university STRING NOT NULL, "
-        + "description STRING, "
-        + "logo STRING, "
-        + "filters STRING NOT NULL)"    
+        + "polfilters STRING, "   
+        + "relfilters STRING, " 
+        + "culfilters STRING) "  
     ),
 
     db.run("INSERT INTO InterestClubs (id, name, university, clublink, description, logo, interests) "
@@ -114,28 +97,44 @@ db.serialize(function(){
         + " 'Acting, Bowling, Chess, Dancing, Eating, Fencing, Guitar, Hair Styling, Ice Skating, Jump Roping') "
     ),
 
-    db.run("INSERT INTO PoliticalClubs (id, name, university, clublink, description, logo, filters) "
+    db.run("INSERT INTO FilterClubs (id, name, university, clublink, description, logo, polfilters, relfilters, culfilters) "
         + "VALUES (1, 'Capital Community', 'The University of Texas at Austin', " 
         + "'https://utexas.campuslabs.com/engage/organization/capitalcommunity',"
         + "'The mission statement of Capital Community is to provide education about affordable credit options for people in under-served groups in the Austin community', "
         + "'', "
-        + " 'Conservative') "
+        + " 'Conservative', "
+        + "'', "
+        + "'') "
     ),
 
-    db.run("INSERT INTO ReligiousClubs (id, name, university, clublink, description, logo, filters) "
-        + "VALUES (1, 'Hindu Students Association', 'The University of Texas at Austin', " 
+    db.run("INSERT INTO FilterClubs (id, name, university, clublink, description, logo, polfilters, relfilters, culfilters) "
+        + "VALUES (2, 'Hindu Students Association', 'The University of Texas at Austin', " 
         + "'https://utexas.campuslabs.com/engage/organization/1996',"
         + "'The Hindu Students Association aims to cultivate and foster cross-cultural dialogue and interaction on issues that pertain to Hindus domestically and globally', "
         + "'https://se-infra-imageserver2.azureedge.net/clink/images/1e6cad27-5620-478b-965c-82706ecb90d914187e09-78f6-45c6-8149-e0a9513f7445.jpg?preset=med-sq', "
-        + " 'Hinduism') "
+        + " '', "
+        + " 'Hindu', "
+        + " '') "
     ),
 
-    db.run("INSERT INTO CulturalClubs (id, name, university, clublink, description, logo, filters) "
-        + "VALUES (1, 'Filipino Students Association', 'The University of Texas at Austin', " 
+    db.run("INSERT INTO FilterClubs (id, name, university, clublink, description, logo, polfilters, relfilters, culfilters) "
+        + "VALUES (3, 'Filipino Students Association', 'The University of Texas at Austin', " 
         + "'https://utexas.campuslabs.com/engage/organization/utfsa',"
-        + "'The purpose of the organization shall be to serve as a social group for Filipinos, their friends, and anyone interested in the Philippines;', "
+        + "'The purpose of the organization shall be to serve as a social group for Filipinos, their friends, and anyone interested in the Philippines', "
         + "'https://se-infra-imageserver2.azureedge.net/clink/images/7c58e7ff-e4aa-42a7-8768-5fe1fe6000a70a059042-8fee-42ec-8192-0cae8720d161.png?preset=med-sq', "
+        + " '', "
+        + " '', "
         + " 'Asian') "
+    ),
+
+    db.run("INSERT INTO FilterClubs (id, name, university, clublink, description, logo, polfilters, relfilters, culfilters) "
+        + "VALUES (4, 'Latin Christian Association', 'The University of Texas at Austin', " 
+        + "'https://utexas.campuslabs.com/engage/organization/utfsa',"
+        + "'Big Latin Chrisitan Club', "
+        + "'https://se-infra-imageserver2.azureedge.net/clink/images/7c58e7ff-e4aa-42a7-8768-5fe1fe6000a70a059042-8fee-42ec-8192-0cae8720d161.png?preset=med-sq', "
+        + " '', "
+        + " 'Christian', "
+        + " 'Latin') "
     )
 
 });

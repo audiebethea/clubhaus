@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import '../results/results.css';
 
 let returnedClubs = [];
+let pages = ["Interest", "Political", "Religious", "Cultural"];
 
 export default class InterestResults extends React.Component{
     //data will come in as a prop array "clubs"
@@ -63,11 +64,22 @@ export default class InterestResults extends React.Component{
             <div>
                 <HeaderBar showBackButton={true} gotoPage={this.props.gotoPage} destination='Questionnaire'/>
 
-                <hr style={{margin : '0 0 6%'}}></hr>
+                <hr style={{margin : '0 0 3%'}}></hr>
 
-                <p>{returnedClubs.toString()}</p>
-
-                
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', margin:'0 10% 3%'}}>
+                    {pages.map(page => {
+                        if(page + "Results" === this.props.curPage){
+                            return (<div>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}}>{page + " Results"}</Button>
+                            </div>)
+                        }
+                        else{
+                            return (<div>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")}>{page + " Results"}</Button>
+                            </div>)
+                        }
+                    })}
+                </div>
 
                 {returnedClubs.length !== 0 ? (
                         returnedClubs.map(club => {
@@ -96,7 +108,7 @@ export default class InterestResults extends React.Component{
                                 </Card>
                             )
                         }
-                    )) : <h3>Sorry, we couldn't find any compatible clubs.</h3>
+                    )) : <h3 style = {{color : 'red'}}>Sorry, we couldn't find any compatible clubs. Please try again.</h3>
                 }
             </div>
         )
