@@ -2,7 +2,8 @@
 
 //import statements
 import React from 'react';
-import Select from '@material-ui/core/NativeSelect';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import HeaderBar from '../higherordercomponents/headerbar.js';
 import CheckboxGrid from '../higherordercomponents/checkboxgrid.js';
 import NavButton from '../higherordercomponents/navbutton.js';
@@ -75,9 +76,7 @@ export default class Questionnaire extends React.Component{
         }))        
     }
 
-    handleSelectionUpdate(event, relatedState, relatedStateName){
-        const selectedValue = event.target.value;
-
+    handleSelectionUpdate(selectedValue, relatedState, relatedStateName){
         let newState = relatedState;
 
         //if the client selects not interested, clear the state and input not interested
@@ -157,13 +156,13 @@ export default class Questionnaire extends React.Component{
                 <h1 className='section-title'>QUESTIONS</h1>
                 <p style={{margin : '0% 12%'}}>
                     Your answers for these questions will be used to filter out
-                    clubs that you will likely not be interested in. If some of the
-                    questions feel too personal or you would not like to have your 
-                    clubs filtered this way, please use the "Not Interested"
-                    option.
+                    clubs that you will likely not be interested in. Please select
+                    every option that you are interested in seeing clubs about.
                 </p>
 
                 <hr className='underline'></hr>
+
+
 
 
                 <div className='questions-grid'>
@@ -184,7 +183,36 @@ export default class Questionnaire extends React.Component{
                             relatedStateName = culturalAnswers;
                         }
                         return(
-                            <div style={{padding:'2.5%'}}>
+                            <div>
+                                <h3 className='question'>{question}</h3>
+                                {answersToQuestion.map(answer => {
+                                    return (
+                                        <FormControlLabel
+                                            label = {answer}
+                                            labelPlacement = 'start'
+                                            control={
+                                                <Checkbox 
+                                                    checked = {relatedState.includes(answer)}
+                                                    onChange = {() => this.handleSelectionUpdate(answer, relatedState, relatedStateName)}
+                                                    style = {{color : 'rgb(90, 201, 238)'}}
+                                                />
+                                            }
+                                        />
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
+                </div>
+
+                <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
+
+            </div>
+        )
+    }
+}
+
+/*<div style={{padding:'2.5%'}}>
                                 <h3 className='question'>{question}</h3>
                                 <Select 
                                     multiple
@@ -200,14 +228,4 @@ export default class Questionnaire extends React.Component{
                                     })}
                                     onChange = {event => this.handleSelectionUpdate(event, relatedState, relatedStateName)}
                                 />   
-                            </div>
-                        )
-                    })}
-                </div>
-
-                <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
-
-            </div>
-        )
-    }
-}
+                            </div>*/
