@@ -207,11 +207,6 @@ export default class Questionnaire extends React.Component{
 
                 <NavButton text="See your matched clubs!" onClick={this.onSubmit} destination='InterestResults'/>
 
-                <p>{this.state.politicalAnswers.toString()}</p>
-                <p>{this.state.religiousAnswers.toString()}</p>
-                <p>{this.state.culturalAnswers.toString()}</p>
-
-
             </div>
         )
     }

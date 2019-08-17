@@ -83,7 +83,9 @@ export default class InterestResults extends React.Component{
 
                 {returnedClubs.length !== 0 ? (
                         returnedClubs.map(club => {
-                            const matchedInterests = club.matchedInterests.toString().replace(/,/, ', ');
+                            const matchedInterests = club.matchedInterests.toString().replace(/,/g, ', ');
+                            const unrelatedInterests = club.unrelatedInterests.toString().replace(/,/g, ', ');
+
                             return (
                                 <Card raised = {true} style={{margin : '0 20%'}}>
                                     <h2 className='card-title'>{club.name}</h2>
@@ -98,6 +100,9 @@ export default class InterestResults extends React.Component{
                                     </p>
                                     <p className="matched-interests">
                                         Matched Interests : {matchedInterests}
+                                    </p> 
+                                    <p className="matched-interests">
+                                        Unrelated Interests : {unrelatedInterests}
                                     </p> 
                                     <a href={club.clublink} target='_blank' rel="noopener noreferrer" style={{textDecoration:'none'}}>
                                         <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}} variant='contained'>

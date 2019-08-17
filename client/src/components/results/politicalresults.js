@@ -98,8 +98,8 @@ export default class PoliticalResults extends React.Component{
                                 <p className='description'>
                                     Description : {club.description}
                                 </p>
-                                <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
-                                    <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
+                                <a href={club.clublink} target='_blank' rel="noopener noreferrer" style={{textDecoration:'none'}}>
+                                    <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}} variant='contained'>
                                         Learn More About This Club!
                                     </Button>
                                 </a>

@@ -12,8 +12,6 @@ const db = new sqlite3.Database('./api/database.sqlite');
 interestRouter.post('/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
 
-    console.log('Connected.');
-
     db.all('SELECT * FROM InterestClubs WHERE InterestClubs.university = $university', {$university : university},
         (error, result) => {
             if(error){
@@ -70,17 +68,22 @@ function computeMatchPercent(selectedInterests, clubs){
         const totalInterestCount = clubInterests.length;
         let matchCount = 0;
         let matchedInterests = [];
+        let unrelatedInterests = [];
 
         clubInterests.forEach(clubInterest => {
             if(selectedInterests.includes(clubInterest)){
                 matchCount++;
                 matchedInterests.push(clubInterest);
             }
+            else{
+                unrelatedInterests.push(clubInterest);
+            }
         })
 
         club.matchCount = matchCount;
         club.matchPercent = (matchCount * 1.0 / totalInterestCount) * 100;
         club.matchedInterests = matchedInterests;
+        club.unrelatedInterests = unrelatedInterests;
     })
 
     return clubs;

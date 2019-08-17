@@ -9,6 +9,8 @@ import '../results/results.css';
 
 let returnedClubs = [];
 
+let pages = ["Interest", "Political", "Religious", "Cultural"];
+
 export default class CulturalResults extends React.Component{
     //data will come in as a prop array "clubs"
     constructor(props){
@@ -23,14 +25,20 @@ export default class CulturalResults extends React.Component{
     componentDidMount(){
         window.scrollTo(0,0);
 
-        this.getClubs();
+        if(this.props.culturalAnswers[0] === "Not Interested"){
+            returnedClubs = [];
+            this.forceUpdate();
+        }
+        else{
+            this.getClubs();
+        }
+
     }
 
     async getClubs(){
         const university = this.props.chosenUniversity.replace(/\s/, '+');
-        const stringifyFilters = JSON.stringify(this.props.filters);
 
-        const query = '/filter/cultural' + university;
+        const query = '/filter/cultural/' + university;
 
         try{
             const response = await fetch(query, {
@@ -39,11 +47,10 @@ export default class CulturalResults extends React.Component{
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: stringifyFilters,
+                body: JSON.stringify(this.props.culturalAnswers)
             });
             if(response.ok){
                 const jsonResponse = await response.json();
-
                 returnedClubs = jsonResponse;
 
                 this.forceUpdate();
@@ -63,29 +70,44 @@ export default class CulturalResults extends React.Component{
             <div>
                 <HeaderBar showBackButton={true} gotoPage={this.props.gotoPage} destination='Questionnaire'/>
 
-                <hr style={{margin : '0 0 6%'}}></hr>
+                <hr style={{margin : '0 0 3%'}}></hr>
 
-                <p>{returnedClubs.toString()}</p>
+                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', margin:'0 10% 3%'}}>
+                    {pages.map(page => {
+                        if(page + "Results" === this.props.curPage){
+                            return (<div>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}}>{page + " Results"}</Button>
+                            </div>)
+                        }
+                        else{
+                            return (<div>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")}>{page + " Results"}</Button>
+                            </div>)
+                        }
+                    })}
+                </div>
 
-                {returnedClubs.map(club => {
-                    return (
-                        <Card raised = {true} style={{margin : '0 20%'}}>
-                            <h2 className='card-title'>{club.name}</h2>
-                            <img src={club.logo} alt="" className='club-logo'></img>
-                            <hr className='underline-card'></hr>
-                            <CardContent>
-                            <p className='description'>
-                                Description : {club.description}
-                            </p>
-                            <a href={club.clubLink} target='_blank' rel="noopener noreferrer" className='learn-more'>
-                                <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}}>
-                                    Learn More About This Club!
-                                </Button>
-                            </a>
-                            </CardContent>
-                        </Card>
-                    )
-                })}
+                {returnedClubs.length !== 0 ? 
+                    (returnedClubs.map(club => {
+                        return (
+                            <Card raised = {true} style={{margin : '0 20%'}}>
+                                <h2 className='card-title'>{club.name}</h2>
+                                <img src={club.logo} alt="" className='club-logo'></img>
+                                <hr className='underline-card'></hr>
+                                <CardContent>
+                                <p className='description'>
+                                    Description : {club.description}
+                                </p>
+                                <a href={club.clublink} target='_blank' rel="noopener noreferrer" style={{textDecoration:'none'}}>
+                                    <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}} variant='contained'>
+                                        Learn More About This Club!
+                                    </Button>
+                                </a>
+                                </CardContent>
+                            </Card>
+                        )
+                    }))  : <h3 style = {{color : 'red'}}>Sorry, we couldn't find any compatible clubs. Please try again.</h3>  
+                }
             </div>
         )
     }

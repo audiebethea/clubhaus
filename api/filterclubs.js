@@ -12,8 +12,6 @@ filterRouter.post('/:filter/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
     const filterType = req.params.filter.substring(0, 3) + 'filters';
 
-    console.log('Connected to FilterClubs.');
-
     db.all("SELECT * FROM FilterClubs WHERE FilterClubs.university = $university", 
         {$university : university},
         (error, result) => {
@@ -22,8 +20,6 @@ filterRouter.post('/:filter/:university', (req, res, next) => {
             }
             else{
                 let filteredResults = result.filter(club => club[filterType] !== null);
-
-                console.log(filterType);
 
                 filteredResults = findSpecClubs(filteredResults, filterType, req.body);
 
