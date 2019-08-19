@@ -184,7 +184,7 @@ export default class Questionnaire extends React.Component{
                         }
                         return(
                             <div>
-                                <h3 className='question'>{question}</h3>
+                                <h3 style={{fontSize : 'calc(12px + .8vw)'}}>{question}</h3>
                                 {answersToQuestion.map(answer => {
                                     return (
                                         <FormControlLabel

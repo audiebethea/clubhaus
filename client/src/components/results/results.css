@@ -24,10 +24,22 @@
     font-size : calc(10px + .6vw)
 }
 
-.match-percent {
+.matched-interests {
     font-size : calc(10px + .6vw);
 }
 
-.matched-interests {
-    font-size : calc(10px + .6vw);
+@media (min-width : 563px){
+    .nav-grid {
+        display : grid;
+        grid-template-columns : 1fr 1fr 1fr 1fr;
+        margin : 0 10% 3%;
+    }
+}
+
+@media (max-width : 562px){
+    .nav-grid {
+        display : grid;
+        grid-template-columns : 1fr 1fr;
+        margin : 0 10% 3%;
+    }
 }

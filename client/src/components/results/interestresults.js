@@ -66,16 +66,16 @@ export default class InterestResults extends React.Component{
 
                 <hr style={{margin : '0 0 3%'}}></hr>
 
-                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', margin:'0 10% 3%'}}>
+                <div className='nav-grid'>
                     {pages.map(page => {
                         if(page + "Results" === this.props.curPage){
                             return (<div>
-                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}}>{page + " Results"}</Button>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}} variant='outlined'>{page + " Results"}</Button>
                             </div>)
                         }
                         else{
                             return (<div>
-                                <Button onClick={() => this.props.gotoPage(page + "Results")}>{page + " Results"}</Button>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")} variant='outlined'>{page + " Results"}</Button>
                             </div>)
                         }
                     })}
@@ -92,18 +92,18 @@ export default class InterestResults extends React.Component{
                                     <img src={club.logo} alt="" className='club-logo'></img>
                                     <hr className='underline-card'></hr>
                                     <CardContent>
-                                    <p className='description'>
-                                        Description : {club.description}
-                                    </p>
-                                    <p className="match-percent">
-                                        Match % : {club.matchPercent}
-                                    </p>
+                                    <h2>
+                                        Match % : {club.matchPercent.toFixed(2)}
+                                    </h2>
                                     <p className="matched-interests">
                                         Matched Interests : {matchedInterests}
                                     </p> 
                                     <p className="matched-interests">
                                         Unrelated Interests : {unrelatedInterests}
                                     </p> 
+                                    <p className='description'>
+                                        Description : {club.description}
+                                    </p>
                                     <a href={club.clublink} target='_blank' rel="noopener noreferrer" style={{textDecoration:'none'}}>
                                         <Button style = {{fontSize : 'calc(6px + 1vw)', margin : '2% 0% 5%'}} variant='contained'>
                                             Learn More About This Club!

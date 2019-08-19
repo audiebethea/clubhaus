@@ -72,7 +72,7 @@ export default class CulturalResults extends React.Component{
 
                 <hr style={{margin : '0 0 3%'}}></hr>
 
-                <div style={{display:'grid', gridTemplateColumns:'1fr 1fr 1fr 1fr', margin:'0 10% 3%'}}>
+                <div className='nav-grid'>
                     {pages.map(page => {
                         if(page + "Results" === this.props.curPage){
                             return (<div>

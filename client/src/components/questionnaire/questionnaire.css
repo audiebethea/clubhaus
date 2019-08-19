@@ -79,7 +79,3 @@
 .questions-grid > div:nth-child(odd){
     background-color : lightgray;
 }
-
-.question {
-    font-size : calc(10px + .6vw);
-}
