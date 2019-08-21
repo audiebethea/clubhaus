@@ -2,6 +2,8 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 
+const UNIVERSITY = 'University of Texas at Austin';
+
 //query selectors
 
 const TITLE_QUERY_SELECTOR = 'a > div > div > div > span > div > div > div:nth-child(2)';
@@ -30,14 +32,16 @@ void (async () => {
         numClubs = numClubs.split('of ');
         numClubs = numClubs[1].substring(0, numClubs[1].length - 1);
         numClubs = parseInt(numClubs, 10);
-        const numClicks = numClubs / 10 + 1;
+        const numClicks = numClubs / 10;
 
         //grab button anc click it a bunch
         const showMoreButton = await rootPage.$('#react-app > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(2) > div > div:nth-child(2) > div:nth-child(2) > button');
-        for(let i = 0; i < numClicks; i++){
+        for(let i = 0; i < numClicks - 1 ; i++){
             await showMoreButton.click();
-            await rootPage.waitFor(350);
+            await rootPage.waitFor(1000);
         }
+
+        await rootPage.waitFor(25000);
 
         //get clubs
         const clubs = await rootPage.$$('#org-search-results > div > div > div');
@@ -66,7 +70,8 @@ void (async () => {
                 logoLink : logoLink,
                 fullDescription : fullDescription,
                 facebookLink : facebookLink,
-                twitterLink : twitterLink
+                twitterLink : twitterLink,
+                university : UNIVERSITY
             });
 
             await clubPage.close();
