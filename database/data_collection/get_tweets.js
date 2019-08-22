@@ -22,6 +22,9 @@ void (async () => {
                 const clubData = await getTweets(club);
                 newData.push(clubData);
             }
+            else{
+                newData.push(club);
+            }
         }
         
         //update the json file

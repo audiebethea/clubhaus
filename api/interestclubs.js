@@ -30,6 +30,7 @@ interestRouter.post('/:university', (req, res, next) => {
                     }
                 }
 
+                //consider also filtering out clubs that have < 3 interests associated
                 let filteredResults = eliminateNotInterested(notInterested, result);
 
                 filteredResults = computeMatchPercent(interested, filteredResults);
@@ -38,8 +39,8 @@ interestRouter.post('/:university', (req, res, next) => {
                 filteredResults.sort((clubA, clubB) => clubA.matchPercent === clubB.matchPercent ? clubB.matchCount - clubA.matchCount : clubB.matchPercent - clubA.matchPercent);
 
                 //limit filtered results to just the highest
-                if(filteredResults.length > 5){
-                    filteredResults.length = 5;
+                if(filteredResults.length > 50){
+                    filteredResults.length = 50;
                 }
 
                 filteredResults = filteredResults.filter(club => club.matchPercent > 0);
