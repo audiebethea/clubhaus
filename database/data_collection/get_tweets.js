@@ -61,7 +61,7 @@ async function getTweets(club){
         const response = await fetch(url, {
             method : 'GET',
             headers : {
-                "Authorization" : "Bearer AAAAAAAAAAAAAAAAAAAAAES1%2FgAAAAAAO4KRTFi9JfMjxXSTcQnUgzBd2MI%3DcmXs8HIxtt0HqKIkrsZN1tTUzEltDFNCnBzFLaTLQkJX3jXhSg"
+                "Authorization" : "Bearer ---"
             }
         });
         if(response.ok){
