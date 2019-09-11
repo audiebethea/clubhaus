@@ -6,9 +6,8 @@ import NavButton from '../higherordercomponents/navbutton.js';
 import './universityselect.css';
 
 //supported universities
-const UNIVERSITIES = ["The University of Texas at Austin", "Texas A&M University", "Texas Christian University", "Rice University",
-                        "Baylor University", "Texas Tech University", "Southern Methodist University", "University of Houston",
-                        "Eastfield College", "Richland College", "Texas State University", "North Texas University"];
+const UNIVERSITIES = ["University of Texas at Austin", "Texas A&M University", 
+                        "Indiana University Bloomington", "Texas Christian University"];
 
 //this component is used to determine the user's university so clubs and colleges
 //can be grabbed from the database for that particular university

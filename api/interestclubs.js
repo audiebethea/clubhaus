@@ -1,54 +1,82 @@
 //require statements
 const express = require('express');
-const sqlite3 = require('sqlite3');
 const errorhandler = require('errorhandler');
+const {Client} = require('pg');
 
 const interestRouter = express.Router();
 interestRouter.use(errorhandler());
-
-const db = new sqlite3.Database('./api/database.sqlite');
 
 //already mounted router at /interest
 interestRouter.post('/:university', (req, res, next) => {
     const university = req.params.university.replace(/\+/g, ' ');
 
-    db.all('SELECT * FROM InterestClubs WHERE InterestClubs.university = $university', {$university : university},
-        (error, result) => {
-            if(error){
-                next(error);
-            }
-            else{
-                //pull interests and non-interests out of req.body
-                let interested = [];
-                let notInterested = [];
-                for (let [key, value] of Object.entries(req.body)){
-                    if(value === 'Interested'){
-                        interested.push(key);
-                    }
-                    if(value === 'Not Interested'){
-                        notInterested.push(key);
-                    }
-                }
+    const client = new Client({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_DATABASE
+    });
 
-                //consider also filtering out clubs that have < 3 interests associated
-                let filteredResults = eliminateNotInterested(notInterested, result);
-
-                filteredResults = computeMatchPercent(interested, filteredResults);
-
-                //sort first by match percent, then by absolute number of matches
-                filteredResults.sort((clubA, clubB) => clubA.matchPercent === clubB.matchPercent ? clubB.matchCount - clubA.matchCount : clubB.matchPercent - clubA.matchPercent);
-
-                //limit filtered results to just the highest
-                if(filteredResults.length > 50){
-                    filteredResults.length = 50;
-                }
-
-                filteredResults = filteredResults.filter(club => club.matchPercent > 0);
-                
-                res.json(filteredResults);
-            }
+    client.connect(error => {
+        if(error){
+            throw error;
         }
-    )
+        else{
+            const query = "SELECT * FROM InterestClubs WHERE InterestClubs.university = '" + university + "'";
+
+            client.query(query,
+                (error, rawResult) => {
+                    if(error){
+                        next(error);
+                    }
+                    else{
+                        client.end();
+
+                        const result = rawResult.rows;
+
+                        //pull interests and non-interests out of req.body
+                        let interested = [];
+                        let notInterested = [];
+                        for (let [key, value] of Object.entries(req.body)){
+                            if(value === 'Interested'){
+                                interested.push(key);
+                            }
+                            if(value === 'Not Interested'){
+                                notInterested.push(key);
+                            }
+                        }
+                        //consider also filtering out clubs that have < 3 interests associated
+                        let filteredResults = eliminateNotInterested(notInterested, result);
+        
+                        filteredResults = computeMatchPercent(interested, filteredResults);
+        
+                        //sort first by match percent, then by absolute number of matches
+                        filteredResults.sort((clubA, clubB) => {
+                            //if match counts are low, we want to sort based on match count
+                            if(clubA.matchCount < 3 || clubB.matchCount < 3){
+                                return clubA.matchCount === clubB.matchCount ? clubB.matchPercent - clubA.matchPercent : clubB.matchCount - clubA.matchCount;
+
+                            }
+                            //other wise sort based on match percent
+                            else{
+                                return clubA.matchPercent === clubB.matchPercent ? clubB.matchCount - clubA.matchCount : clubB.matchPercent - clubA.matchPercent;
+                            }
+                        });
+        
+                        //limit filtered results to just the highest
+                        if(filteredResults.length > 50){
+                            filteredResults.length = 50;
+                        }
+        
+                        filteredResults = filteredResults.filter(club => club.matchPercent > 0);
+                        
+                        res.status(200).json(filteredResults);
+                    }
+                }
+            )
+        }
+    })
+    
 });
 
 //eliminate any clubs that have the interests marked at Not Interested

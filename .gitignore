@@ -1,1 +1,7 @@
 node_modules
+database/data_collection/final_club_data
+database/data_collection/scraping/indiana_university_bloomington/IUclubs.json
+database/data_collection/scraping/texas_am_university/AMclubs.json
+database/data_collection/scraping/texas_christian_university/TCUclubs.json
+database/data_collection/scraping/university_of_texas_at_austin/UTclubs.json
+.env

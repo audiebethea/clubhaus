@@ -61,7 +61,8 @@ async function getTweets(club){
         const response = await fetch(url, {
             method : 'GET',
             headers : {
-                "Authorization" : "Bearer ---"
+                //real bearer token goes here
+                "Authorization" : "Bearer " + process.env.TWITTER_BEARER
             }
         });
         if(response.ok){

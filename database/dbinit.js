@@ -1,1 +1,0 @@
-//this file will be run using nodejs to initialize the database

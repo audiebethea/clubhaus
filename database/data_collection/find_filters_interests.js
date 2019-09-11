@@ -60,7 +60,7 @@ const possibleInterests = {
     'Leadership' : ['leadership', 'integrity'],
     'Communications' : ['communication', 'communicate', 'radio', 'advertis'],
     'Graduate' : ['grad student', 'graduate student'],
-    'Tech' : ['tech', 'apple', 'google', 'tesla', 'facebook', 'amazon'],
+    'Tech' : ['tech',],
     'Co-op' : ['co-op', ' coop ', 'co op'],
     'Human Rights' : ['human right', 'humanity', 'protest', 'activis'],
     '3-D printing' : ['3-d', '3d', ' 3 d ', 'printing'],
@@ -71,11 +71,10 @@ const possibleInterests = {
 
 const politicalFilters = {
     'Conservative' : ['conservative', 'republican', 'right-wing'],
-    'Liberal' : ['liberal', 'democrat', 'democratic', 'left-wing'],
-    'Moderate' : ['moderate', 'centrist'],
+    'Liberal' : ['democrat', 'left-wing'],
     'LGBTQ+' : ['lgbtq', 'lesbian', 'gay', 'homosexual', 'queer', 'transgender', 'bisexual', 'pansexual', 'asexual'],
-    'Pro-Choice' : ['pro-choice', 'pro-abortion'],
-    'Pro-Life' : ['pro-life', 'anti-abortion']
+    'Feminist': ['feminis'],
+    'Environmental' : ['environment']
 }
 
 const religiousFilters = {
@@ -128,10 +127,9 @@ const culturalFilters = {
 const filters = [politicalFilters, religiousFilters, culturalFilters];
 
 void (() => {
-    let index = 0;
+    const newData = [];
 
     for(const clubs of universities){
-        const newData = [];
 
         for(const club of clubs){
             let clubData = findFilters(club);
@@ -143,25 +141,8 @@ void (() => {
             delete clubData.twitterLink;
             newData.push(clubData);  
         }
-        
-        //update the json file, this will need to be changed when i do more universities
-        switch(index){
-            case 0:
-                fs.writeFile('./final_club_data/UTdata.json', JSON.stringify(newData, null, 2), (err) => err ? console.error('Data not written!', err) : console.log('Data Written!'));
-                break;
-            case 1: 
-                fs.writeFile('./final_club_data/TCUdata.json', JSON.stringify(newData, null, 2), (err) => err ? console.error('Data not written!', err) : console.log('Data Written!'));
-                break;
-            case 2:
-                fs.writeFile('./final_club_data/AMdata.json', JSON.stringify(newData, null, 2), (err) => err ? console.error('Data not written!', err) : console.log('Data Written!'));
-                break;
-            case 3:
-                fs.writeFile('./final_club_data/IUdata.json', JSON.stringify(newData, null, 2), (err) => err ? console.error('Data not written!', err) : console.log('Data Written!'));
-                break;
-        }
-
-        index++;
     }
+    fs.writeFile('./final_club_data/alldata.json', JSON.stringify(newData, null, 2), (err) => err ? console.error('Data not written!', err) : console.log('Data Written!'));
 })()
 
 //loops through each filter and sees if any keywords match up
