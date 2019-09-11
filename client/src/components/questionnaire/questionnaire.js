@@ -12,13 +12,23 @@ import './questionnaire.css';
 
 
 //interests array
-const INTERESTS = ["Acting", "Bowling", "Chess", "Dancing", "Eating", "Fencing", "Guitar", "Hair Styling", "Ice Skating", "Jump Roping"];
+const INTERESTS = ['Academic', "Acting", 'Animation/Graphic Design', 'Architecture', "Art", 'Astronomy', 'Business', 'Cars', "Chess", 'Comedy', 
+                        'Communications', 'Computer Science', 'Culture', '3-D printing', "Dancing", 'Debate', 'Event Hosting', 'Fashion', 'Fitness', "Food", 
+                        "Gaming", 'Geology', 'Graduate', 'Greek Life', "Health Studies", 'Human Rights', "Intramurals", 'Law', 'Leadership', 'Magazine', 'Martial Arts', 'Magic Tricks',
+                        'Music Performance/Production', 'Movies', 'Origami', 'Outdoors', 'Photography/Videography', 'Politics', 'Radio',
+                        'Reading/Writing', 'Religion', 'Research', 'ROTC', 'Teaching', 'Sailing', 'Skating', 'Spirit Organization', 'Stock Market',
+                        'Student Government', 'Study Abroad', 'Swordplay', 'Volunteering', 'Yoga'];
 //questions array
 const QUESTIONS = ["What political groups would you like to see?", "What religious groups would you like to see?", "What cultural groups would you like to see?"];
 //answers arrays
-const politicalAnswers = ["Not Interested", "Conservative", "Liberal",];
-const religiousAnswers = ["Not Interested", "Christian", "Muslim", "Hindu",];
-const culturalAnswers = ["Not Interested", "Asian", "European", "Latin"];
+const politicalAnswers = ["Not Interested", "Conservative", "Liberal", 'LGBTQ+', 'Pro-Choice', 'Pro-Life'];
+const religiousAnswers = ["Not Interested", "Christian", "Muslim", "Hindu", 'Buddhist', 'Jewish', 'Sikh', 'Athiest'];
+const culturalAnswers = ["Not Interested", "Asian", "European", "Latin", 'African', 'Arab', 
+                            'Korean', 'Japanese', 'Chinese', 'Taiwanese', 'Thai', 'Vietnamese', 'Filipino', 'Indonesian', 'Indian', 'Bengali',
+                            'Pakistani', 'Saudi Arabian', 'Afghanistani', 
+                            'Scottish', 'Irish', 'Russian', 'Italian', 'Spanish', 'German', 'French', 'Greek', 'Armenian',
+                            'Nigerian', 'Egyptian', 'Ethiopian', 
+                            'Cuban', 'Mexican', 'Brazilian', 'Argentinian'];
 const ANSWERS = [politicalAnswers, religiousAnswers, culturalAnswers];
 
 
@@ -188,7 +198,7 @@ export default class Questionnaire extends React.Component{
                                 {answersToQuestion.map(answer => {
                                     return (
                                         <FormControlLabel
-                                            label = {answer}
+                                            label =  {answer}
                                             labelPlacement = 'start'
                                             control={
                                                 <Checkbox 
@@ -211,21 +221,3 @@ export default class Questionnaire extends React.Component{
         )
     }
 }
-
-/*<div style={{padding:'2.5%'}}>
-                                <h3 className='question'>{question}</h3>
-                                <Select 
-                                    multiple
-                                    autoWidth
-                                    className='native-select'
-                                    children = {answersToQuestion.map(answer => {
-                                        if(relatedState.includes(answer)){
-                                            return <option value={answer}>{answer} (selected)</option>
-                                        }
-                                        else{
-                                            return <option value={answer}>{answer}</option>
-                                        }
-                                    })}
-                                    onChange = {event => this.handleSelectionUpdate(event, relatedState, relatedStateName)}
-                                />   
-                            </div>*/

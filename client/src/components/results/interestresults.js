@@ -87,12 +87,14 @@ export default class InterestResults extends React.Component{
                             const unrelatedInterests = club.unrelatedInterests.toString().replace(/,/g, ', ');
 
                             return (
-                                <Card raised = {true} style={{margin : '0 20%'}}>
-                                    <h2 className='card-title'>{club.name}</h2>
-                                    <img src={club.logo} alt="" className='club-logo'></img>
+                                <Card raised = {true} style = {{margin : '0 10%'}}>
+                                    <div className='title-grid'>
+                                        <div><h2 style={{fontSize : 'calc(4px + 1.4vw)', marginTop : '5%'}}>{club.name}</h2></div>
+                                        <div><img src={club.logo} alt="" style = {{height: '45%', width: '45%', marginTop : '5%'}}></img></div>
+                                    </div>
                                     <hr className='underline-card'></hr>
                                     <CardContent>
-                                    <h2>
+                                    <h2 style={{fontSize : 'calc(14px + .6vw)'}}>
                                         Match % : {club.matchPercent.toFixed(2)}
                                     </h2>
                                     <p className="matched-interests">

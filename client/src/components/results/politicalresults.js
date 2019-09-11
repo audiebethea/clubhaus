@@ -76,7 +76,7 @@ export default class PoliticalResults extends React.Component{
                     {pages.map(page => {
                         if(page + "Results" === this.props.curPage){
                             return (<div>
-                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}}>{page + " Results"}</Button>
+                                <Button onClick={() => this.props.gotoPage(page + "Results")} style={{textDecoration:'underline'}} variant='outlined'>{page + " Results"}</Button>
                             </div>)
                         }
                         else{
